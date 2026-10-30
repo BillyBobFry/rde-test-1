@@ -1,0 +1,27 @@
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+definition:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - count-where
+      - name: keys_near_limit
+      - - =
+        - {}
+        - - field
+          - {}
+          - - Trivia API Logs
+            - trivia_analytics
+            - mart_trivia_fct_key_month
+            - is_near_limit
+        - true
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_month
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+description: 'Keys that used 80% or more of their monthly limit. Owner: Will Fry.'
+entity_id: 4QrMePQ8AaAtb4hqa933t
+name: Keys near limit
+serdes/meta:
+- model: Measure

@@ -1,0 +1,81 @@
+name: Which keys are closest to their monthly limit?
+description: 'Non-test keys this month, including keys on no plan. The month is partial and the figures are as of the last app DB snapshot. Owner: Will Fry.'
+entity_id: 4vRNQMG-7o9jhduRYs6QR
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: table
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - fields:
+    - - field
+      - {}
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_key_month
+        - key_code
+    - - field
+      - {}
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_key_month
+        - plan_name
+    - - field
+      - {}
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_key_month
+        - credits_used
+    - - field
+      - {}
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_key_month
+        - request_limit
+    - - field
+      - {}
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_key_month
+        - limit_used_share
+    filters:
+    - - segment
+      - {}
+      - vUJrj6Wnxlv4A-AG4auyk
+    - - =
+      - {}
+      - - field
+        - {}
+        - - Trivia API Logs
+          - trivia_analytics
+          - mart_trivia_fct_key_month
+          - is_complete_month
+      - false
+    limit: 8
+    order-by:
+    - - desc
+      - {}
+      - - field
+        - {}
+        - - Trivia API Logs
+          - trivia_analytics
+          - mart_trivia_fct_key_month
+          - limit_used_share
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_month
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings:
+  column_settings:
+    '["name","limit_used_share"]':
+      decimals: 1
+      number_style: percent
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: 5ZwqZ9cgrHVqWQ1ZNITic
+type: question

@@ -9,62 +9,53 @@ parameter_mappings: []
 dataset_query:
   database: Trivia API Logs
   stages:
-  - native: 'SELECT key_hash AS api_key, SUM(successful_requests) AS successful_requests, SUM(failed_requests) AS rejected_requests, SUM(rate_limited_requests) AS rate_limited, COUNT(DISTINCT request_date) AS active_days FROM ({{snippet: Trivia API requests by key and day}}) b WHERE caller_type = ''Paid key'' GROUP BY 1 ORDER BY 2 DESC'
-    template-tags:
-    - display-name: Trivia API requests by key and day
-      id: cacf6606-b51f-485a-aee5-30de34276ead
-      name: 'snippet: Trivia API requests by key and day'
-      snippet-id: S9S9Pt9p6nUgKsRGr0W3S
-      snippet-name: Trivia API requests by key and day
-      type: snippet
-    lib/type: mbql.stage/native
+  - aggregation:
+    - - measure
+      - {}
+      - 6j7PNIwBdSBaS3uuQb20g
+    - - measure
+      - {}
+      - SyK5Ap4Km-abK2xIk8QXE
+    - - measure
+      - {}
+      - tjOM4AQDJwb_KfhgF-pKG
+    - - distinct
+      - name: active_days
+      - - field
+        - {}
+        - - Trivia API Logs
+          - trivia_analytics
+          - mart_trivia_fct_key_day
+          - request_date
+    breakout:
+    - - field
+      - {}
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_key_day
+        - key_code
+    - - field
+      - {}
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_key_day
+        - plan_name
+    filters:
+    - - segment
+      - {}
+      - o07sU8HE3Rp9ENI7xr_Oe
+    order-by:
+    - - desc
+      - {}
+      - - measure
+        - {}
+        - 6j7PNIwBdSBaS3uuQb20g
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_day
+    lib/type: mbql.stage/mbql
   lib/type: mbql/query
-result_metadata:
-- base_type: type/Text
-  display_name: api_key
-  effective_type: type/Text
-  field_ref:
-  - field
-  - api_key
-  - base-type: type/Text
-  name: api_key
-  semantic_type: null
-- base_type: type/Integer
-  display_name: successful_requests
-  effective_type: type/Integer
-  field_ref:
-  - field
-  - successful_requests
-  - base-type: type/Integer
-  name: successful_requests
-  semantic_type: null
-- base_type: type/Integer
-  display_name: rejected_requests
-  effective_type: type/Integer
-  field_ref:
-  - field
-  - rejected_requests
-  - base-type: type/Integer
-  name: rejected_requests
-  semantic_type: null
-- base_type: type/Integer
-  display_name: rate_limited
-  effective_type: type/Integer
-  field_ref:
-  - field
-  - rate_limited
-  - base-type: type/Integer
-  name: rate_limited
-  semantic_type: null
-- base_type: type/Integer
-  display_name: active_days
-  effective_type: type/Integer
-  field_ref:
-  - field
-  - active_days
-  - base-type: type/Integer
-  name: active_days
-  semantic_type: null
 visualization_settings: {}
 card_schema: 24
 serdes/meta:

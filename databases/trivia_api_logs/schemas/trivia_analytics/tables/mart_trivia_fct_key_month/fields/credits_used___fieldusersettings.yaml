@@ -1,0 +1,10 @@
+description: 'Charged credits: 1 per /questions request, 50 per answer validation.'
+description_set: true
+display_name: Credits used
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_key_month
+- credits_used
+serdes/meta:
+- model: FieldUserSettings

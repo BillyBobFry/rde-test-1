@@ -1,0 +1,49 @@
+collection_id: Vq_JSZ9FQrYxtECEPNU0A
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+description: 'One row per: API key and month with usage. Key: key_month_key. Sources: stg_trivia_key_usage_month, mart_trivia_dim_api_key. Definition: credits charged per key per month, and the share of the key''s limit they used. Caveats: plan and paying status are today''s, not as of that month, so history is not a past customer count. Months with no usage have no row. The snapshot''s own month is flagged incomplete. D15 stale until the refresh script reruns.'
+entity_id: Mwar56scc6p5kUACfHV2i
+indexes: []
+name: mart_trivia_fct_key_month
+owner_user_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+source:
+  query:
+    database: Trivia API Logs
+    stages:
+    - native: |
+        -- One row per: API key and month with usage
+        -- Key:         key_month_key
+        -- Sources:     stg_trivia_key_usage_month, mart_trivia_dim_api_key
+        -- Definition:  credits charged per key per month, and the share of the key's limit they used
+        -- Caveats:     plan and paying status are today's, not as of that month, so history is not a past customer count. Months with no usage have no row. The snapshot's own month is flagged incomplete. D15 stale until the refresh script reruns.
+        SELECT
+          CONCAT(u.key_id, '|', CAST(u.usage_month AS STRING)) AS key_month_key,
+          u.key_id,
+          d.key_code,
+          u.usage_month,
+          u.usage_month < DATE_TRUNC(u.snapshot_date, MONTH) AS is_complete_month,
+          u.credits_used,
+          u.ai_validations,
+          d.request_limit,
+          SAFE_DIVIDE(u.credits_used, d.request_limit) AS limit_used_share,
+          SAFE_DIVIDE(u.credits_used, d.request_limit) >= 0.8 AS is_near_limit,
+          u.credits_used > 0 AS is_active,
+          d.plan_name,
+          d.is_paying,
+          d.is_test
+        FROM trivia_analytics.stg_trivia_key_usage_month u
+        JOIN trivia_analytics.mart_trivia_dim_api_key d ON d.key_id = u.key_id
+      lib/type: mbql.stage/native
+    lib/type: mbql/query
+  type: query
+source_database_id: Trivia API Logs
+tags:
+- entity_id: Zj4qFKEJGGNOeQWRdwMCQ
+  position: 0
+  tag_id: dUW7nvQHQBdA0Rx0gJckI
+target:
+  database: Trivia API Logs
+  name: mart_trivia_fct_key_month
+  schema: trivia_analytics
+  type: table
+serdes/meta:
+- model: Transform

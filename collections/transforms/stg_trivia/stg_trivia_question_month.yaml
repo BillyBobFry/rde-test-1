@@ -1,0 +1,100 @@
+collection_id: rzCN1f5ECRbLeyHVYkOnl
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+description: 'One row per: month created and review state. Key: created_month, question_state. Sources: app DB question, snapshot 2026-10-30 via scripts/refresh_app_db_snapshot.py. Definition: question counts. Caveats: D15 stale until the script reruns. Question text is not copied.'
+entity_id: BKWG4afrUzhzI4ILAj28K
+indexes: []
+name: stg_trivia_question_month
+owner_user_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+source:
+  query:
+    database: Trivia API Logs
+    stages:
+    - native: |-
+        SELECT s.*, DATE '2026-10-30' AS snapshot_date FROM UNNEST(ARRAY<STRUCT<created_month DATE, question_state STRING, question_count INT64>>[
+          (DATE '2026-02-01', 'approved', 847),
+          (DATE '2023-09-01', 'rejected', 184),
+          (DATE '2026-03-01', 'rejected', 41),
+          (DATE '2026-09-01', 'approved', 298),
+          (DATE '2023-02-01', 'rejected', 12),
+          (DATE '2023-07-01', 'rejected', 9),
+          (DATE '2022-03-01', 'rejected', 2692),
+          (DATE '2024-04-01', 'approved', 8),
+          (DATE '2022-06-01', 'rejected', 1),
+          (DATE '2022-12-01', 'rejected', 32),
+          (DATE '2023-01-01', 'pending', 1),
+          (DATE '2023-06-01', 'rejected', 65),
+          (DATE '2026-09-01', 'rejected', 80),
+          (DATE '2023-03-01', 'rejected', 1),
+          (DATE '2023-03-01', 'approved', 290),
+          (DATE '2023-01-01', 'approved', 61),
+          (DATE '2022-05-01', 'rejected', 24),
+          (DATE '2022-05-01', 'pending', 3),
+          (DATE '2022-06-01', 'approved', 36),
+          (DATE '2022-07-01', 'approved', 23),
+          (DATE '2022-11-01', 'pending', 1),
+          (DATE '2022-04-01', 'pending', 19),
+          (DATE '2026-06-01', 'rejected', 5),
+          (DATE '2022-11-01', 'rejected', 7),
+          (DATE '2023-05-01', 'approved', 962),
+          (DATE '2023-08-01', 'rejected', 54),
+          (DATE '2026-10-01', 'rejected', 7),
+          (DATE '2026-04-01', 'rejected', 156),
+          (DATE '2022-09-01', 'approved', 2),
+          (DATE '2023-08-01', 'pending', 347),
+          (DATE '2026-02-01', 'rejected', 250),
+          (DATE '2026-06-01', 'approved', 5),
+          (DATE '2026-08-01', 'rejected', 2),
+          (DATE '2023-08-01', 'approved', 284),
+          (DATE '2024-04-01', 'rejected', 2),
+          (DATE '2022-10-01', 'rejected', 4),
+          (DATE '2023-02-01', 'approved', 145),
+          (DATE '2023-06-01', 'pending', 539),
+          (DATE '2022-03-01', 'approved', 4998),
+          (DATE '2022-07-01', 'rejected', 5),
+          (DATE '2023-05-01', 'rejected', 211),
+          (DATE '2022-11-01', 'approved', 140),
+          (DATE '2022-05-01', 'approved', 113),
+          (DATE '2022-04-01', 'rejected', 198),
+          (DATE '2023-04-01', 'approved', 302),
+          (DATE '2023-02-01', 'pending', 2),
+          (DATE '2026-01-01', 'rejected', 135),
+          (DATE '2023-07-01', 'pending', 6),
+          (DATE '2022-03-01', 'pending', 2543),
+          (DATE '2023-01-01', 'rejected', 12),
+          (DATE '2023-03-01', 'pending', 37),
+          (DATE '2023-04-01', 'rejected', 4),
+          (DATE '2023-09-01', 'approved', 765),
+          (DATE '2025-12-01', 'approved', 2008),
+          (DATE '2026-05-01', 'rejected', 8),
+          (DATE '2026-01-01', 'approved', 1157),
+          (DATE '2026-05-01', 'approved', 17),
+          (DATE '2022-08-01', 'approved', 1),
+          (DATE '2026-04-01', 'approved', 531),
+          (DATE '2022-12-01', 'approved', 385),
+          (DATE '2022-04-01', 'approved', 903),
+          (DATE '2023-07-01', 'approved', 134),
+          (DATE '2025-12-01', 'rejected', 194),
+          (DATE '2022-12-01', 'pending', 4),
+          (DATE '2023-09-01', 'pending', 118),
+          (DATE '2022-10-01', 'approved', 30),
+          (DATE '2023-06-01', 'approved', 833),
+          (DATE '2026-03-01', 'approved', 162),
+          (DATE '2026-10-01', 'approved', 334),
+          (DATE '2023-04-01', 'pending', 9),
+          (DATE '2023-05-01', 'pending', 2032)
+        ]) s
+      lib/type: mbql.stage/native
+    lib/type: mbql/query
+  type: query
+source_database_id: Trivia API Logs
+tags:
+- entity_id: Xrj6y7vT9mjWFOCpyZAk7
+  position: 0
+  tag_id: dUW7nvQHQBdA0Rx0gJckI
+target:
+  database: Trivia API Logs
+  name: stg_trivia_question_month
+  schema: trivia_analytics
+  type: table
+serdes/meta:
+- model: Transform

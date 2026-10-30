@@ -1,0 +1,27 @@
+name: Paying customers
+description: 'Non-test keys whose settings match a public plan exactly. Inferred, no billing data. Owner: Will Fry.'
+entity_id: 7-f_3LtNN13eHLforLij2
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: scalar
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - metric
+      - {}
+      - 0xIHJrjkygvt48nitkkxv
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_dim_api_key
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: 5ZwqZ9cgrHVqWQ1ZNITic
+type: question

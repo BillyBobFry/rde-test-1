@@ -1,0 +1,34 @@
+name: Estimated revenue from those idle customers
+description: 'Estimate from public list prices, not billed revenue. List price of paying keys with no credits in the last complete month. Owner: Will Fry.'
+entity_id: cBCe6C22D70zYmQL7pEIu
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: scalar
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - metric
+      - {}
+      - F3N6nh031TVH3yfajjZz9
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_dim_api_key
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings:
+  column_settings:
+    '["name","monthly_list_revenue"]':
+      currency: USD
+      currency_style: symbol
+      decimals: 0
+      number_style: currency
+  scalar.field: monthly_list_revenue
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: 5ZwqZ9cgrHVqWQ1ZNITic
+type: question

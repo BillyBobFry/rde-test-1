@@ -1,0 +1,14 @@
+caveats: 'Snapshot of the app DB, refreshed by scripts/refresh_app_db_snapshot.py, not automatically. No billing data exists: paying is inferred from settings and revenue from list prices. Lapsed subscribers who kept their settings still count.'
+caveats_set: true
+collection_id: librarylibrarydatadat
+description: 'One row per API key, with the public plan its settings match and whether it counts as a paying customer. Owner: Will Fry.'
+description_set: true
+display_name: API keys
+entity_type: entity/UserTable
+is_published: true
+table_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_dim_api_key
+serdes/meta:
+- model: TableUserSettings

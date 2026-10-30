@@ -1,0 +1,6 @@
+name: mart_trivia
+entity_id: Vq_JSZ9FQrYxtECEPNU0A
+slug: mart_trivia
+namespace: transforms
+serdes/meta:
+- model: Collection

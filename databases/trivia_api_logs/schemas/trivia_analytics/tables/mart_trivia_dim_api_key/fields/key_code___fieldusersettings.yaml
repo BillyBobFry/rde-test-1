@@ -1,0 +1,13 @@
+description: Last three characters of the key id, for reading dashboards without showing the key.
+description_set: true
+display_name: Key code
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_dim_api_key
+- key_code
+has_field_values: list
+semantic_type: type/Category
+semantic_type_set: true
+serdes/meta:
+- model: FieldUserSettings

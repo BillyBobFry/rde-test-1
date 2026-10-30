@@ -1,0 +1,13 @@
+description: Public plan whose settings the key matches exactly, or No plan match.
+description_set: true
+display_name: Plan
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_dim_api_key
+- plan_name
+has_field_values: list
+semantic_type: type/Category
+semantic_type_set: true
+serdes/meta:
+- model: FieldUserSettings

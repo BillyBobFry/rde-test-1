@@ -1,0 +1,24 @@
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+definition:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - sum
+      - name: failed_requests
+      - - field
+        - {}
+        - - Trivia API Logs
+          - trivia_analytics
+          - mart_trivia_fct_key_day
+          - failed_requests
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_day
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+description: 'Requests with status 400 or above. Owner: Will Fry.'
+entity_id: SyK5Ap4Km-abK2xIk8QXE
+name: Failed requests
+serdes/meta:
+- model: Measure

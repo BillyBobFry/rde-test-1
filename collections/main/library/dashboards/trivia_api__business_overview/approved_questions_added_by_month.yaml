@@ -1,0 +1,40 @@
+name: Approved questions added by month
+description: 'Questions approved for use, by month created. Owner: Will Fry.'
+entity_id: DjeSwXja35ugemv0ZP4zp
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: bar
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - metric
+      - {}
+      - N7bO8IPqytHMubYaU-8j_
+    breakout:
+    - - field
+      - temporal-unit: month
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_question_month
+        - created_month
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_question_month
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings:
+  graph.dimensions:
+  - created_month
+  graph.metrics:
+  - questions
+  graph.x_axis.title_text: Month
+  graph.y_axis.title_text: Questions
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: 5ZwqZ9cgrHVqWQ1ZNITic
+type: question

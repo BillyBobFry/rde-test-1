@@ -1,0 +1,41 @@
+name: Credits used, last complete month
+description: 'Credits charged to non-test keys, against the month before. Excludes the partial current month. Owner: Will Fry.'
+entity_id: aPR0GqTPTQXRfZJRGkRMc
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: smartscalar
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - metric
+      - {}
+      - oL0eXfBhjH5L8hRFO3dj4
+    breakout:
+    - - field
+      - temporal-unit: month
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_key_month
+        - usage_month
+    filters:
+    - - segment
+      - {}
+      - esqOycnJRUreWDY_AL9W8
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_month
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings:
+  scalar.comparisons:
+  - id: c1
+    type: previousPeriod
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: 5ZwqZ9cgrHVqWQ1ZNITic
+type: question

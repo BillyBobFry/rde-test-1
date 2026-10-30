@@ -1,0 +1,10 @@
+description: Flagged by email domain, own account name, or internal notes.
+description_set: true
+display_name: Test key
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_dim_api_key
+- is_test
+serdes/meta:
+- model: FieldUserSettings

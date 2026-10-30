@@ -1,0 +1,10 @@
+description: Status 400 or above, including rejected requests such as 404 and 429.
+description_set: true
+display_name: Failed requests
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_api_day
+- failed_requests
+serdes/meta:
+- model: FieldUserSettings

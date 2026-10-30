@@ -1,0 +1,25 @@
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+definition:
+  database: Trivia API Logs
+  stages:
+  - filters:
+    - - =
+      - {}
+      - - field
+        - {}
+        - - Trivia API Logs
+          - trivia_analytics
+          - mart_trivia_fct_key_day
+          - caller_type
+      - API key
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_day
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+description: 'Requests with a recognised API key. Includes test keys. Owner: Will Fry.'
+entity_id: o07sU8HE3Rp9ENI7xr_Oe
+name: API key traffic
+serdes/meta:
+- model: Segment

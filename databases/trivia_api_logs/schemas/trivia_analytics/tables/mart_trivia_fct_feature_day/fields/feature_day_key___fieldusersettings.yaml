@@ -1,0 +1,10 @@
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_feature_day
+- feature_day_key
+semantic_type: type/PK
+semantic_type_set: true
+visibility_type: hidden
+serdes/meta:
+- model: FieldUserSettings

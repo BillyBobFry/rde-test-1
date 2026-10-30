@@ -1,0 +1,54 @@
+collection_id: Vq_JSZ9FQrYxtECEPNU0A
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+description: 'One row per: day. Key: request_date. Sources: stg_trivia_request, stg_trivia_free_caller_day. Definition: whole-API traffic, reliability, free-tier callers and AI tokens per day. Caveats: D1 success is status below 400, so rejected requests (404, 429) count as failed; server_errors is status 500 and above. D5 no key is free tier. D14 AI tokens are not priced. Today and 2026-10-02 are flagged incomplete.'
+entity_id: oZ5kOGch-ELB7vgBK810g
+indexes: []
+name: mart_trivia_fct_api_day
+owner_user_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+source:
+  query:
+    database: Trivia API Logs
+    stages:
+    - native: |
+        -- One row per: day
+        -- Key:         request_date
+        -- Sources:     stg_trivia_request, stg_trivia_free_caller_day
+        -- Definition:  whole-API traffic, reliability, free-tier callers and AI tokens per day
+        -- Caveats:     D1 success is status below 400, so rejected requests (404, 429) count as failed; server_errors is status 500 and above. D5 no key is free tier. D14 AI tokens are not priced. Today and 2026-10-02 are flagged incomplete.
+        WITH daily AS (
+          SELECT
+            r.request_date,
+            r.is_complete_day,
+            COUNT(*) AS total_requests,
+            COUNTIF(r.is_success) AS successful_requests,
+            COUNTIF(NOT r.is_success) AS failed_requests,
+            COUNTIF(r.status_code >= 500) AS server_errors,
+            COUNTIF(r.status_code = 429) AS rate_limited_requests,
+            COUNTIF(r.caller_type = 'Free (no key)') AS free_tier_requests,
+            COUNTIF(r.caller_type = 'API key') AS api_key_requests,
+            COUNTIF(r.caller_type = 'Unrecognised key') AS unrecognised_key_requests,
+            COUNTIF(r.is_ai_validation) AS ai_validations,
+            IFNULL(SUM(r.ai_input_tokens), 0) AS ai_input_tokens,
+            IFNULL(SUM(r.ai_output_tokens), 0) AS ai_output_tokens,
+            APPROX_QUANTILES(r.latency_ms, 100)[OFFSET(95)] AS p95_latency_ms
+          FROM trivia_analytics.stg_trivia_request r
+          GROUP BY 1, 2
+        )
+        SELECT d.*, c.free_tier_ips
+        FROM daily d
+        LEFT JOIN trivia_analytics.stg_trivia_free_caller_day c ON c.request_date = d.request_date
+      lib/type: mbql.stage/native
+    lib/type: mbql/query
+  type: query
+source_database_id: Trivia API Logs
+tags:
+- entity_id: z-UfcjDPnsC8pwn8C61Y_
+  position: 0
+  tag_id: dUW7nvQHQBdA0Rx0gJckI
+target:
+  database: Trivia API Logs
+  name: mart_trivia_fct_api_day
+  schema: trivia_analytics
+  type: table
+serdes/meta:
+- model: Transform

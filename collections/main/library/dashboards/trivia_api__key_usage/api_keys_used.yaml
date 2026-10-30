@@ -1,0 +1,31 @@
+name: API keys used
+description: 'Keys with at least one successful request since logs began. Includes test keys and keys on no plan, so it is not the paying customer count. Owner: Will Fry.'
+entity_id: CuYPiuRDYSlq9MDsjbD4G
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: scalar
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - measure
+      - {}
+      - YOY9meTnROo9WfCL27c81
+    filters:
+    - - segment
+      - {}
+      - o07sU8HE3Rp9ENI7xr_Oe
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_day
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: -HcieavlSY8qTr_ZKl7E5
+type: question

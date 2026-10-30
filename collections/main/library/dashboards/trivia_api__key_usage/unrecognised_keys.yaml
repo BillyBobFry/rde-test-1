@@ -9,44 +9,46 @@ parameter_mappings: []
 dataset_query:
   database: Trivia API Logs
   stages:
-  - native: 'SELECT key_hash AS api_key, SUM(total_requests) AS requests, SUM(successful_requests) AS successful FROM ({{snippet: Trivia API requests by key and day}}) b WHERE caller_type = ''Unrecognised key'' GROUP BY 1 ORDER BY 2 DESC'
-    template-tags:
-    - display-name: Trivia API requests by key and day
-      id: a684adef-0190-4cc3-afed-f10ab720d160
-      name: 'snippet: Trivia API requests by key and day'
-      snippet-id: S9S9Pt9p6nUgKsRGr0W3S
-      snippet-name: Trivia API requests by key and day
-      type: snippet
-    lib/type: mbql.stage/native
+  - aggregation:
+    - - sum
+      - name: requests
+      - - field
+        - {}
+        - - Trivia API Logs
+          - trivia_analytics
+          - mart_trivia_fct_key_day
+          - total_requests
+    - - measure
+      - {}
+      - 6j7PNIwBdSBaS3uuQb20g
+    breakout:
+    - - field
+      - {}
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_key_day
+        - key_hash
+    filters:
+    - - segment
+      - {}
+      - ieLo4MMfxwk2OupLEbzyM
+    order-by:
+    - - desc
+      - {}
+      - - sum
+        - name: requests
+        - - field
+          - {}
+          - - Trivia API Logs
+            - trivia_analytics
+            - mart_trivia_fct_key_day
+            - total_requests
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_day
+    lib/type: mbql.stage/mbql
   lib/type: mbql/query
-result_metadata:
-- base_type: type/Text
-  display_name: api_key
-  effective_type: type/Text
-  field_ref:
-  - field
-  - api_key
-  - base-type: type/Text
-  name: api_key
-  semantic_type: null
-- base_type: type/Integer
-  display_name: requests
-  effective_type: type/Integer
-  field_ref:
-  - field
-  - requests
-  - base-type: type/Integer
-  name: requests
-  semantic_type: null
-- base_type: type/Integer
-  display_name: successful
-  effective_type: type/Integer
-  field_ref:
-  - field
-  - successful
-  - base-type: type/Integer
-  name: successful
-  semantic_type: null
 visualization_settings: {}
 card_schema: 24
 serdes/meta:

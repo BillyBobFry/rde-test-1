@@ -1,0 +1,78 @@
+collection_id: Vq_JSZ9FQrYxtECEPNU0A
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+description: 'One row per: API key. Key: key_id. Sources: stg_trivia_api_key, stg_trivia_key_usage_month, cfg_trivia_plan. Definition: each key, the public plan its settings match, and whether it counts as a paying customer. Caveats: D12 paying means not a test key and every plan setting matches exactly; there is no billing data, so a lapsed subscriber who kept the settings still counts. D11 revenue is list price, an estimate. D15 snapshot, stale until the refresh script reruns.'
+entity_id: pDg31thpIXpBrdfiR3gcR
+indexes: []
+name: mart_trivia_dim_api_key
+owner_user_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+source:
+  query:
+    database: Trivia API Logs
+    stages:
+    - native: |
+        -- One row per: API key
+        -- Key:         key_id
+        -- Sources:     stg_trivia_api_key, stg_trivia_key_usage_month, cfg_trivia_plan
+        -- Definition:  each key, the public plan its settings match, and whether it counts as a paying customer
+        -- Caveats:     D12 paying means not a test key and every plan setting matches exactly; there is no billing data, so a lapsed subscriber who kept the settings still counts. D11 revenue is list price, an estimate. D15 snapshot, stale until the refresh script reruns.
+        WITH usage_summary AS (
+          SELECT
+            u.key_id,
+            MIN(u.usage_month) AS first_usage_month,
+            MAX(u.usage_month) AS last_usage_month,
+            COUNT(*) AS months_with_usage,
+            SUM(u.credits_used) AS lifetime_credits,
+            SUM(IF(u.usage_month = DATE_TRUNC(DATE_SUB(u.snapshot_date, INTERVAL 1 MONTH), MONTH), u.credits_used, 0)) AS credits_last_complete_month,
+            SUM(IF(u.usage_month = DATE_TRUNC(u.snapshot_date, MONTH), u.credits_used, 0)) AS credits_this_month
+          FROM trivia_analytics.stg_trivia_key_usage_month u
+          GROUP BY 1
+        )
+        SELECT
+          k.key_id,
+          k.key_code,
+          IFNULL(p.plan_name, 'No plan match') AS plan_name,
+          p.plan_name IS NOT NULL AND NOT k.is_test AS is_paying,
+          k.is_test,
+          k.test_reason,
+          k.is_staff_key,
+          IF(NOT k.is_test, p.monthly_list_price_usd, NULL) AS monthly_list_price_usd,
+          k.request_limit,
+          k.quiz_limit,
+          k.quiz_question_limit,
+          k.max_random_questions,
+          k.can_search,
+          k.can_skip_rate_limit,
+          k.can_use_sessions,
+          k.can_use_image_choice,
+          k.can_use_text_input,
+          k.can_use_translations,
+          k.can_use_semantic_search,
+          u.first_usage_month,
+          u.last_usage_month,
+          IFNULL(u.months_with_usage, 0) AS months_with_usage,
+          IFNULL(u.lifetime_credits, 0) AS lifetime_credits,
+          IFNULL(u.credits_last_complete_month, 0) AS credits_last_complete_month,
+          IFNULL(u.credits_this_month, 0) AS credits_this_month,
+          IFNULL(u.credits_last_complete_month, 0) = 0 AS is_idle_last_complete_month,
+          k.snapshot_date
+        FROM trivia_analytics.stg_trivia_api_key k
+        LEFT JOIN trivia_analytics.cfg_trivia_plan p
+          ON k.request_limit = p.request_limit AND k.quiz_limit = p.quiz_limit AND k.quiz_question_limit = p.quiz_question_limit
+          AND k.can_search = p.can_search AND k.can_skip_rate_limit = p.can_skip_rate_limit AND k.can_use_sessions = p.can_use_sessions
+          AND k.can_use_image_choice = p.can_use_image_choice AND k.can_use_text_input = p.can_use_text_input AND k.can_use_translations = p.can_use_translations
+        LEFT JOIN usage_summary u ON u.key_id = k.key_id
+      lib/type: mbql.stage/native
+    lib/type: mbql/query
+  type: query
+source_database_id: Trivia API Logs
+tags:
+- entity_id: VCldYeYQrdMLT_SQbAVp6
+  position: 0
+  tag_id: dUW7nvQHQBdA0Rx0gJckI
+target:
+  database: Trivia API Logs
+  name: mart_trivia_dim_api_key
+  schema: trivia_analytics
+  type: table
+serdes/meta:
+- model: Transform

@@ -1,0 +1,56 @@
+collection_id: rzCN1f5ECRbLeyHVYkOnl
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+description: 'One row per: API request logged by the server. Key: request_id. Sources: trivia_api_logs.run_googleapis_com_stdout. Definition: each logged request with its normalised route, outcome and caller. Caveats: caller IP and user agent are not carried. D1 success means status below 400. D2 a key with no user id is unrecognised. D5 no key means free tier. D7 logs start 2026-10-02 10:21 UTC, so that day and today are flagged incomplete.'
+entity_id: 7Gyg3hOeEpdlUyv7_o7qR
+indexes: []
+name: stg_trivia_request
+owner_user_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+source:
+  query:
+    database: Trivia API Logs
+    stages:
+    - native: |
+        -- One row per: API request logged by the server
+        -- Key:         request_id
+        -- Sources:     trivia_api_logs.run_googleapis_com_stdout
+        -- Definition:  each logged request with its normalised route, outcome and caller
+        -- Caveats:     caller IP and user agent are not carried. D1 success means status below 400. D2 a key with no user id is unrecognised. D5 no key means free tier. D7 logs start 2026-10-02 10:21 UTC, so that day and today are flagged incomplete.
+        SELECT
+          l.insertId AS request_id,
+          l.timestamp AS requested_at,
+          DATE(l.timestamp) AS request_date,
+          DATE(l.timestamp) > DATE '2026-10-02' AND DATE(l.timestamp) < CURRENT_DATE() AS is_complete_day,
+          l.jsonPayload.method AS http_method,
+          REGEXP_REPLACE(REGEXP_REPLACE(l.jsonPayload.route, r'^/(v1|v2|api)', ''), r'/$', '') AS route,
+          CAST(l.jsonPayload.status AS INT64) AS status_code,
+          l.jsonPayload.status < 400 AS is_success,
+          l.jsonPayload.latencyms AS latency_ms,
+          CASE
+            WHEN l.jsonPayload.apikey.hash IS NULL THEN 'Free (no key)'
+            WHEN l.jsonPayload.apikey.userid IS NULL THEN 'Unrecognised key'
+            ELSE 'API key'
+          END AS caller_type,
+          l.jsonPayload.apikey.hash AS key_hash,
+          l.jsonPayload.apikey.userid AS key_id,
+          IFNULL(l.jsonPayload.rawquery, '') AS raw_query,
+          l.jsonPayload.answervalidation.usage.model IS NOT NULL AS is_ai_validation,
+          l.jsonPayload.answervalidation.usage.inputtokens AS ai_input_tokens,
+          l.jsonPayload.answervalidation.usage.outputtokens AS ai_output_tokens
+        FROM trivia_api_logs.run_googleapis_com_stdout l
+        WHERE l.jsonPayload.type = 'request'
+        QUALIFY ROW_NUMBER() OVER (PARTITION BY l.insertId ORDER BY l.receiveTimestamp) = 1
+      lib/type: mbql.stage/native
+    lib/type: mbql/query
+  type: query
+source_database_id: Trivia API Logs
+tags:
+- entity_id: BtE3tvCD28SFiGuyXdDL1
+  position: 0
+  tag_id: dUW7nvQHQBdA0Rx0gJckI
+target:
+  database: Trivia API Logs
+  name: stg_trivia_request
+  schema: trivia_analytics
+  type: table
+serdes/meta:
+- model: Transform

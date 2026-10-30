@@ -1,0 +1,25 @@
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+definition:
+  database: Trivia API Logs
+  stages:
+  - filters:
+    - - =
+      - {}
+      - - field
+        - {}
+        - - Trivia API Logs
+          - trivia_analytics
+          - mart_trivia_dim_api_key
+          - is_idle_last_complete_month
+      - true
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_dim_api_key
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+description: 'Keys with no credits in the last complete month. Owner: Will Fry.'
+entity_id: Qdj0SRbJG6ko3Hl2Z-dN2
+name: Idle last month
+serdes/meta:
+- model: Segment

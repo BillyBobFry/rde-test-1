@@ -1,0 +1,14 @@
+caveats: Plan and paying status are today's, not as of that month. Months with no usage have no row. The newest month is partial. Snapshot of the app DB.
+caveats_set: true
+collection_id: librarylibrarydatadat
+description: 'One row per API key and month with usage: credits charged and the share of the key''s limit used. Owner: Will Fry.'
+description_set: true
+display_name: API key credits by month
+entity_type: entity/TransactionTable
+is_published: true
+table_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_key_month
+serdes/meta:
+- model: TableUserSettings

@@ -1,0 +1,9 @@
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_api_day
+- request_date
+semantic_type: type/PK
+semantic_type_set: true
+serdes/meta:
+- model: FieldUserSettings

@@ -1,0 +1,10 @@
+description: No credits used in the last complete month.
+description_set: true
+display_name: Idle last month
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_dim_api_key
+- is_idle_last_complete_month
+serdes/meta:
+- model: FieldUserSettings

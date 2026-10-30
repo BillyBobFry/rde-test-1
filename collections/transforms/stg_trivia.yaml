@@ -1,0 +1,6 @@
+name: stg_trivia
+entity_id: rzCN1f5ECRbLeyHVYkOnl
+slug: stg_trivia
+namespace: transforms
+serdes/meta:
+- model: Collection

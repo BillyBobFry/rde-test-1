@@ -1,0 +1,37 @@
+name: Free-tier requests
+description: 'Self-consistent only, no external reference. Requests sent with no API key, complete days only. About 90% of all traffic. No bots are filtered. Owner: Will Fry.'
+entity_id: MCi36M1uBbnvJvlMFHBWB
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: line
+collection_id: librarylibrarymetrics
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - measure
+      - {}
+      - N9UNHXW13hDDh1C05GvoL
+    breakout:
+    - - field
+      - temporal-unit: month
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_api_day
+        - request_date
+    filters:
+    - - segment
+      - {}
+      - lspLqmUsvS-sm3OOqHURX
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_api_day
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+type: metric

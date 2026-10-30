@@ -1,0 +1,14 @@
+caveats: Logs start 2 Oct 2026. Today and 2 Oct are flagged incomplete. Free-tier IPs are not people and do not add up across days.
+caveats_set: true
+collection_id: librarylibrarydatadat
+description: 'One row per day: requests, reliability, free-tier callers and AI tokens across the whole API. Owner: Will Fry.'
+description_set: true
+display_name: API traffic by day
+entity_type: entity/EventTable
+is_published: true
+table_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_api_day
+serdes/meta:
+- model: TableUserSettings
