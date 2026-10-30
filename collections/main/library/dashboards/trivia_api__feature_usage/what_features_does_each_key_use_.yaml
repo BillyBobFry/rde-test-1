@@ -1,0 +1,68 @@
+name: What features does each key use?
+description: Successful requests per paid key and feature since 2 Oct 2026. Use the API key filter to see one key. Self-consistent only.
+entity_id: LxaLqHzjAS3LVJLCO4dSu
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: table
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - native: 'SELECT key_hash AS api_key, feature, SUM(successful_requests) AS successful_requests, SUM(failed_requests) AS rejected_requests FROM ({{snippet: Trivia API feature usage by key and day}}) b WHERE caller_type = ''Paid key'' [[AND key_hash = {{api_key}}]] GROUP BY 1, 2 ORDER BY 1, 3 DESC'
+    template-tags:
+    - display-name: Trivia API feature usage by key and day
+      id: cff041e1-c992-4a9c-a062-e9fb7fee7f55
+      name: 'snippet: Trivia API feature usage by key and day'
+      snippet-id: rlEgExVrcsQiZwtT5abM0
+      snippet-name: Trivia API feature usage by key and day
+      type: snippet
+    - display-name: API key
+      id: 087b4297-fa9d-4779-98b8-a08f2665145f
+      name: api_key
+      type: text
+    lib/type: mbql.stage/native
+  lib/type: mbql/query
+result_metadata:
+- base_type: type/Text
+  display_name: api_key
+  effective_type: type/Text
+  field_ref:
+  - field
+  - api_key
+  - base-type: type/Text
+  name: api_key
+  semantic_type: null
+- base_type: type/Text
+  display_name: feature
+  effective_type: type/Text
+  field_ref:
+  - field
+  - feature
+  - base-type: type/Text
+  name: feature
+  semantic_type: null
+- base_type: type/Integer
+  display_name: successful_requests
+  effective_type: type/Integer
+  field_ref:
+  - field
+  - successful_requests
+  - base-type: type/Integer
+  name: successful_requests
+  semantic_type: null
+- base_type: type/Integer
+  display_name: rejected_requests
+  effective_type: type/Integer
+  field_ref:
+  - field
+  - rejected_requests
+  - base-type: type/Integer
+  name: rejected_requests
+  semantic_type: null
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: FCJ1XIpcyikB05Fa_n1BD
+type: question

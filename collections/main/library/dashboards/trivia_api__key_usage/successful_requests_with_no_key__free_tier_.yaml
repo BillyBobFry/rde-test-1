@@ -1,0 +1,37 @@
+name: Successful requests with no key (free tier)
+description: Self-consistent only. Since 2 Oct 2026, today incomplete. Status below 400. No bot filtering.
+entity_id: fWlEmdTZlb8s27B05fWac
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: scalar
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - native: 'SELECT SUM(successful_requests) AS successful_requests FROM ({{snippet: Trivia API requests by key and day}}) b WHERE caller_type = ''Free (no key)'''
+    template-tags:
+    - display-name: Trivia API requests by key and day
+      id: c3739df0-71a3-4a06-a395-abb908e0976a
+      name: 'snippet: Trivia API requests by key and day'
+      snippet-id: S9S9Pt9p6nUgKsRGr0W3S
+      snippet-name: Trivia API requests by key and day
+      type: snippet
+    lib/type: mbql.stage/native
+  lib/type: mbql/query
+result_metadata:
+- base_type: type/Integer
+  display_name: successful_requests
+  effective_type: type/Integer
+  field_ref:
+  - field
+  - successful_requests
+  - base-type: type/Integer
+  name: successful_requests
+  semantic_type: null
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: -HcieavlSY8qTr_ZKl7E5
+type: question

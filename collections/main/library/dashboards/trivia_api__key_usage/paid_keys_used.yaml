@@ -1,0 +1,37 @@
+name: Paid keys used
+description: Self-consistent only. Since 2 Oct 2026, today incomplete. Distinct recognised keys with a successful request.
+entity_id: CuYPiuRDYSlq9MDsjbD4G
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: scalar
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - native: 'SELECT COUNT(DISTINCT IF(successful_requests > 0, key_hash, NULL)) AS paid_keys FROM ({{snippet: Trivia API requests by key and day}}) b WHERE caller_type = ''Paid key'''
+    template-tags:
+    - display-name: Trivia API requests by key and day
+      id: f9cc98b0-ed67-473f-8473-dced2f85ff53
+      name: 'snippet: Trivia API requests by key and day'
+      snippet-id: S9S9Pt9p6nUgKsRGr0W3S
+      snippet-name: Trivia API requests by key and day
+      type: snippet
+    lib/type: mbql.stage/native
+  lib/type: mbql/query
+result_metadata:
+- base_type: type/Integer
+  display_name: paid_keys
+  effective_type: type/Integer
+  field_ref:
+  - field
+  - paid_keys
+  - base-type: type/Integer
+  name: paid_keys
+  semantic_type: null
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: -HcieavlSY8qTr_ZKl7E5
+type: question

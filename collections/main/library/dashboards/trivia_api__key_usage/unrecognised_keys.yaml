@@ -1,0 +1,55 @@
+name: Unrecognised keys
+description: Keys sent with requests that match no account, mostly rejected or deleted keys. Not counted as paid.
+entity_id: UWGeHHlHQ87YGALcduAjA
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: table
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - native: 'SELECT key_hash AS api_key, SUM(total_requests) AS requests, SUM(successful_requests) AS successful FROM ({{snippet: Trivia API requests by key and day}}) b WHERE caller_type = ''Unrecognised key'' GROUP BY 1 ORDER BY 2 DESC'
+    template-tags:
+    - display-name: Trivia API requests by key and day
+      id: a684adef-0190-4cc3-afed-f10ab720d160
+      name: 'snippet: Trivia API requests by key and day'
+      snippet-id: S9S9Pt9p6nUgKsRGr0W3S
+      snippet-name: Trivia API requests by key and day
+      type: snippet
+    lib/type: mbql.stage/native
+  lib/type: mbql/query
+result_metadata:
+- base_type: type/Text
+  display_name: api_key
+  effective_type: type/Text
+  field_ref:
+  - field
+  - api_key
+  - base-type: type/Text
+  name: api_key
+  semantic_type: null
+- base_type: type/Integer
+  display_name: requests
+  effective_type: type/Integer
+  field_ref:
+  - field
+  - requests
+  - base-type: type/Integer
+  name: requests
+  semantic_type: null
+- base_type: type/Integer
+  display_name: successful
+  effective_type: type/Integer
+  field_ref:
+  - field
+  - successful
+  - base-type: type/Integer
+  name: successful
+  semantic_type: null
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: -HcieavlSY8qTr_ZKl7E5
+type: question

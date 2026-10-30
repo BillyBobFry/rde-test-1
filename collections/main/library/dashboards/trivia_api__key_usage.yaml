@@ -1,0 +1,106 @@
+name: 'Trivia API: key usage'
+description: Which paid keys use the API most, and how much traffic is free tier.
+entity_id: -HcieavlSY8qTr_ZKl7E5
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+collection_id: librarylibrarydashbrd
+collection_position: 2
+parameters: []
+serdes/meta:
+- model: Dashboard
+dashcards:
+- entity_id: ZdWsiX8r_ajjf32lLGX6W
+  row: 0
+  col: 0
+  size_x: 24
+  size_y: 2
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings:
+    text: '**Draft.** Data from 2 Oct 2026, up to today (today is incomplete). Live: charts query the logs on each load. Numbers are self-consistent only; credits for three keys were checked against the Mongo ledger on 30 Oct 2026.'
+    virtual_card:
+      display: text
+- entity_id: hx01UavZRRmV2CrWUxp0L
+  card_id: JV7i7I2KV0TfXCMfSijwX
+  row: 2
+  col: 0
+  size_x: 6
+  size_y: 3
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: 1ceEioPshZoRYGzCMAIzH
+  card_id: CuYPiuRDYSlq9MDsjbD4G
+  row: 2
+  col: 6
+  size_x: 6
+  size_y: 3
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: sQfCVlfA2W7iaOh2Xlukq
+  card_id: q7iDzvfalFUP6dWtKkadh
+  row: 2
+  col: 12
+  size_x: 6
+  size_y: 3
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: 71-yLwnoTJOz-OozpnKWd
+  card_id: fWlEmdTZlb8s27B05fWac
+  row: 2
+  col: 18
+  size_x: 6
+  size_y: 3
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: QlUH5B2Inmuj7NRimXiE9
+  card_id: H0YHrGctcVCVcOu6-hf3T
+  row: 5
+  col: 0
+  size_x: 24
+  size_y: 7
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: 0Um50iXvHCRIf9e_FUljC
+  card_id: 6bVWXAURMWv30DzODT3i2
+  row: 12
+  col: 0
+  size_x: 16
+  size_y: 10
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: hl5gBce406fM78d2QUY9H
+  card_id: UWGeHHlHQ87YGALcduAjA
+  row: 12
+  col: 16
+  size_x: 8
+  size_y: 10
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: 9BlwFbiA7m0iPXXs4xDEK
+  row: 22
+  col: 0
+  size_x: 24
+  size_y: 3
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings:
+    text: '**Definitions.** Successful: status below 400. Paid key: a key matching an account. Unrecognised key: a key matching no account, usually rejected or deleted. Free tier: no key sent. Bots are not filtered.'
+    virtual_card:
+      display: text
+tabs: []
+width: fixed

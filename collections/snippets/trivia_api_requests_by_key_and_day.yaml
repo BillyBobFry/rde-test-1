@@ -1,0 +1,24 @@
+name: Trivia API requests by key and day
+description: One row per day, caller type and API key.
+entity_id: S9S9Pt9p6nUgKsRGr0W3S
+content: |-
+  SELECT
+    DATE(l.timestamp) AS request_date,
+    DATE(l.timestamp) < CURRENT_DATE() AS is_complete_day,
+    CASE
+      WHEN l.jsonPayload.apikey.hash IS NULL THEN 'Free (no key)'
+      WHEN l.jsonPayload.apikey.userid IS NULL THEN 'Unrecognised key'
+      ELSE 'Paid key'
+    END AS caller_type,
+    l.jsonPayload.apikey.hash AS key_hash,
+    COUNT(*) AS total_requests,
+    COUNTIF(l.jsonPayload.status < 400) AS successful_requests,
+    COUNTIF(l.jsonPayload.status >= 400) AS failed_requests,
+    COUNTIF(l.jsonPayload.status = 429) AS rate_limited_requests
+  FROM trivia_api_logs.run_googleapis_com_stdout l
+  WHERE l.jsonPayload.type = 'request'
+  GROUP BY 1, 2, 3, 4
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+template_tags: {}
+serdes/meta:
+- model: NativeQuerySnippet

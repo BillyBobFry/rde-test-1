@@ -1,0 +1,55 @@
+name: Which features has nobody used?
+description: Features with no successful request from anyone since 2 Oct 2026, with any rejected attempts. Option-level use in POST bodies is not visible.
+entity_id: ESga6OK1Jw8gNsfIXkGso
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: table
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - native: 'SELECT feature_group, feature, SUM(failed_requests) AS rejected_attempts FROM ({{snippet: Trivia API feature usage by key and day}}) b GROUP BY 1, 2 HAVING SUM(successful_requests) = 0 ORDER BY 1, 2'
+    template-tags:
+    - display-name: Trivia API feature usage by key and day
+      id: 5e8f3cd9-54db-4464-aad3-c31d8157d098
+      name: 'snippet: Trivia API feature usage by key and day'
+      snippet-id: rlEgExVrcsQiZwtT5abM0
+      snippet-name: Trivia API feature usage by key and day
+      type: snippet
+    lib/type: mbql.stage/native
+  lib/type: mbql/query
+result_metadata:
+- base_type: type/Text
+  display_name: feature_group
+  effective_type: type/Text
+  field_ref:
+  - field
+  - feature_group
+  - base-type: type/Text
+  name: feature_group
+  semantic_type: null
+- base_type: type/Text
+  display_name: feature
+  effective_type: type/Text
+  field_ref:
+  - field
+  - feature
+  - base-type: type/Text
+  name: feature
+  semantic_type: null
+- base_type: type/Integer
+  display_name: rejected_attempts
+  effective_type: type/Integer
+  field_ref:
+  - field
+  - rejected_attempts
+  - base-type: type/Integer
+  name: rejected_attempts
+  semantic_type: null
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: FCJ1XIpcyikB05Fa_n1BD
+type: question

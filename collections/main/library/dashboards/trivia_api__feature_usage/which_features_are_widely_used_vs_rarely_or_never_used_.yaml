@@ -1,0 +1,82 @@
+name: Which features are widely used vs rarely or never used?
+description: Every feature from the-trivia-api, zero if never used since 2 Oct 2026. A request counts toward each feature it uses. Self-consistent only.
+entity_id: FoDxDcMyKk6VErOQWpm82
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: table
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - native: 'SELECT feature_group, feature, COUNT(DISTINCT IF(caller_type = ''Paid key'' AND successful_requests > 0, key_hash, NULL)) AS paid_keys_using_it, SUM(IF(caller_type = ''Paid key'', successful_requests, 0)) AS paid_key_requests, SUM(IF(caller_type = ''Free (no key)'', successful_requests, 0)) AS free_tier_requests, SUM(failed_requests) AS rejected_requests FROM ({{snippet: Trivia API feature usage by key and day}}) b GROUP BY 1, 2 ORDER BY 3 DESC, 4 DESC'
+    template-tags:
+    - display-name: Trivia API feature usage by key and day
+      id: 7f80907a-26fb-4ad8-8f96-e73fdc172dbe
+      name: 'snippet: Trivia API feature usage by key and day'
+      snippet-id: rlEgExVrcsQiZwtT5abM0
+      snippet-name: Trivia API feature usage by key and day
+      type: snippet
+    lib/type: mbql.stage/native
+  lib/type: mbql/query
+result_metadata:
+- base_type: type/Text
+  display_name: feature_group
+  effective_type: type/Text
+  field_ref:
+  - field
+  - feature_group
+  - base-type: type/Text
+  name: feature_group
+  semantic_type: null
+- base_type: type/Text
+  display_name: feature
+  effective_type: type/Text
+  field_ref:
+  - field
+  - feature
+  - base-type: type/Text
+  name: feature
+  semantic_type: null
+- base_type: type/Integer
+  display_name: paid_keys_using_it
+  effective_type: type/Integer
+  field_ref:
+  - field
+  - paid_keys_using_it
+  - base-type: type/Integer
+  name: paid_keys_using_it
+  semantic_type: null
+- base_type: type/Integer
+  display_name: paid_key_requests
+  effective_type: type/Integer
+  field_ref:
+  - field
+  - paid_key_requests
+  - base-type: type/Integer
+  name: paid_key_requests
+  semantic_type: null
+- base_type: type/Integer
+  display_name: free_tier_requests
+  effective_type: type/Integer
+  field_ref:
+  - field
+  - free_tier_requests
+  - base-type: type/Integer
+  name: free_tier_requests
+  semantic_type: null
+- base_type: type/Integer
+  display_name: rejected_requests
+  effective_type: type/Integer
+  field_ref:
+  - field
+  - rejected_requests
+  - base-type: type/Integer
+  name: rejected_requests
+  semantic_type: null
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: FCJ1XIpcyikB05Fa_n1BD
+type: question
