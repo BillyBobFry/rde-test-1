@@ -1,9 +1,9 @@
 name: 'Trivia API: feature usage'
-description: Which features are widely used, rarely used or never used, and which features each key uses.
+description: 'Which features are widely used, rarely used or never used, and which features each key uses. Owner: Will Fry.'
 entity_id: FCJ1XIpcyikB05Fa_n1BD
 creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
 collection_id: librarylibrarydashbrd
-collection_position: 1
+collection_position: 2
 parameters:
 - id: api_key
   name: API key
@@ -23,7 +23,7 @@ dashcards:
   parameter_mappings: []
   series: []
   visualization_settings:
-    text: '**Draft.** Data from 2 Oct 2026, up to today (today is incomplete). Live: charts query the logs on each load. Numbers are self-consistent only; credits for three keys were checked against the Mongo ledger on 30 Oct 2026. A request counts toward each feature it uses, so features do not add up to total requests.'
+    text: '**Draft.** Data from 2 Oct 2026, refreshed daily from the logs; today and 2 Oct are partial. Self-consistent only: row counts match the raw logs. API keys here include test keys and keys on no plan; for paying customers see [Trivia API: business overview](/dashboard/3). A request counts toward each feature it uses, so features do not add up to total requests.'
     virtual_card:
       display: text
 - entity_id: upGUnEvw2gm5SgA8Np4eP
@@ -67,9 +67,13 @@ dashcards:
   - card_id: LxaLqHzjAS3LVJLCO4dSu
     parameter_id: api_key
     target:
-    - variable
-    - - template-tag
-      - api_key
+    - dimension
+    - - field
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_feature_day
+        - key_code
+      - base-type: type/Text
   series: []
   visualization_settings: {}
 - entity_id: ng_6FQvMyWTSP2NPBThz6
@@ -81,7 +85,7 @@ dashcards:
   parameter_mappings: []
   series: []
   visualization_settings:
-    text: '**Definitions.** A feature is an endpoint or query parameter from the-trivia-api. Only URLs are logged, so options in POST bodies are invisible. Translations means `language=` other than `en`. Rate-limit bypass and question limits are not measurable as features. Never used means since 2 Oct 2026.'
+    text: '**Definitions.** A feature is an endpoint or query parameter from the-trivia-api. Only URLs are logged, so options in POST bodies are invisible. Translations means `language=` other than `en`. Rate-limit bypass and question limits are not measurable as features. Never used means since 2 Oct 2026. API key filter takes the three-character key code, such as cd1.'
     virtual_card:
       display: text
 tabs: []

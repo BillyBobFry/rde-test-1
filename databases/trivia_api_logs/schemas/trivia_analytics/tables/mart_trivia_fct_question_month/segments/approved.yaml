@@ -1,0 +1,25 @@
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+definition:
+  database: Trivia API Logs
+  stages:
+  - filters:
+    - - =
+      - {}
+      - - field
+        - {}
+        - - Trivia API Logs
+          - trivia_analytics
+          - mart_trivia_fct_question_month
+          - is_approved
+      - true
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_question_month
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+description: 'Questions approved for use. Owner: Will Fry.'
+entity_id: JVj7D0lJPugn0WkY6FfnD
+name: Approved
+serdes/meta:
+- model: Segment

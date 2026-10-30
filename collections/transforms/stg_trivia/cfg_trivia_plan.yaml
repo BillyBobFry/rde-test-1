@@ -1,0 +1,38 @@
+collection_id: rzCN1f5ECRbLeyHVYkOnl
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+description: |
+  One row per: public plan. Key: plan_name. Sources: constants from the public /products list, copied 2026-10-30. Definition: each plan's list price and the exact settings a key needs to count as being on it. Caveats: D11 prices assumed monthly, USD. D12 a key is on a plan only when every setting matches. Change a price here, then run the daily job.
+entity_id: N7v7Md_hURW7uFMdvstIy
+indexes: []
+name: cfg_trivia_plan
+owner_user_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+source:
+  query:
+    database: Trivia API Logs
+    stages:
+    - native: |
+        -- One row per: public plan
+        -- Key:         plan_name
+        -- Sources:     none; constants copied from the public GET /products list on 2026-10-30
+        -- Definition:  each plan's list price and the exact settings a key needs to count as being on it
+        -- Caveats:     D11 prices assumed monthly, in USD; the list does not state the billing period. D12 a key is on a plan only when every setting here matches.
+        SELECT * FROM UNNEST([
+          STRUCT('Value' AS plan_name, 9.99 AS monthly_list_price_usd, 100000 AS request_limit, 5 AS quiz_limit, 20 AS quiz_question_limit, FALSE AS can_search, FALSE AS can_skip_rate_limit, FALSE AS can_use_sessions, FALSE AS can_use_image_choice, FALSE AS can_use_text_input, FALSE AS can_use_translations),
+          STRUCT('Regular', 19.99, 1000000, 100, 100, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE),
+          STRUCT('Complete', 39.99, 5000000, 1000, 100, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE)
+        ])
+      lib/type: mbql.stage/native
+    lib/type: mbql/query
+  type: query
+source_database_id: Trivia API Logs
+tags:
+- entity_id: VXzI_oTwTtCVae5Tv0ME1
+  position: 0
+  tag_id: dUW7nvQHQBdA0Rx0gJckI
+target:
+  database: Trivia API Logs
+  name: cfg_trivia_plan
+  schema: trivia_analytics
+  type: table
+serdes/meta:
+- model: Transform

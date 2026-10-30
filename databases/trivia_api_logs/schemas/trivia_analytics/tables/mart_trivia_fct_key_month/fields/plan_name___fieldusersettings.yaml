@@ -1,0 +1,13 @@
+description: Today's plan.
+description_set: true
+display_name: Plan
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_key_month
+- plan_name
+has_field_values: list
+semantic_type: type/Category
+semantic_type_set: true
+serdes/meta:
+- model: FieldUserSettings

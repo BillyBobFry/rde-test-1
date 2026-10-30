@@ -1,0 +1,10 @@
+description: Used 80% or more of the monthly limit.
+description_set: true
+display_name: Near limit
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_key_month
+- is_near_limit
+serdes/meta:
+- model: FieldUserSettings

@@ -1,0 +1,8 @@
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_key_day
+- key_hash
+visibility_type: hidden
+serdes/meta:
+- model: FieldUserSettings

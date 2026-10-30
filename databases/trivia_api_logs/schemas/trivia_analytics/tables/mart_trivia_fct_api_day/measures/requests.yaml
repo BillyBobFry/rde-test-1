@@ -1,0 +1,24 @@
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+definition:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - sum
+      - name: total_requests
+      - - field
+        - {}
+        - - Trivia API Logs
+          - trivia_analytics
+          - mart_trivia_fct_api_day
+          - total_requests
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_api_day
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+description: 'All logged requests. Owner: Will Fry.'
+entity_id: T3MvJUB2yaGY8sCemzcx5
+name: Requests
+serdes/meta:
+- model: Measure

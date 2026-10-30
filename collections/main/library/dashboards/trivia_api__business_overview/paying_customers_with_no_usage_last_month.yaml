@@ -1,0 +1,27 @@
+name: Paying customers with no usage last month
+description: 'Paying keys with no credits in the last complete month. They may be at risk of cancelling, or already lapsed. Owner: Will Fry.'
+entity_id: Q-dWsDGaQ-xHrL9UAmZPY
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: scalar
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - metric
+      - {}
+      - zJNVY73mXcKIyqCRA5Dqv
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_dim_api_key
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: 5ZwqZ9cgrHVqWQ1ZNITic
+type: question

@@ -1,0 +1,10 @@
+description: Requests with status 500 or above.
+description_set: true
+display_name: Server errors
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_api_day
+- server_errors
+serdes/meta:
+- model: FieldUserSettings

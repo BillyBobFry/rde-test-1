@@ -1,0 +1,37 @@
+name: Average daily free-tier IPs
+description: 'Self-consistent only, no external reference. Average of each day''s distinct IP addresses calling with no key, complete days only. A rough proxy for free users: IPs are not people. Owner: Will Fry.'
+entity_id: CVHbkbWjrYHNya03tEabQ
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: line
+collection_id: librarylibrarymetrics
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - measure
+      - {}
+      - TszpdJFwNH8YNpTi7o63y
+    breakout:
+    - - field
+      - temporal-unit: month
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_api_day
+        - request_date
+    filters:
+    - - segment
+      - {}
+      - lspLqmUsvS-sm3OOqHURX
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_api_day
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+type: metric

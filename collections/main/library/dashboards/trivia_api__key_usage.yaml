@@ -1,9 +1,9 @@
 name: 'Trivia API: key usage'
-description: Which paid keys use the API most, and how much traffic is free tier.
+description: 'Which API keys use the API most, and how much traffic is free tier. Owner: Will Fry.'
 entity_id: -HcieavlSY8qTr_ZKl7E5
 creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
 collection_id: librarylibrarydashbrd
-collection_position: 2
+collection_position: 3
 parameters: []
 serdes/meta:
 - model: Dashboard
@@ -17,7 +17,7 @@ dashcards:
   parameter_mappings: []
   series: []
   visualization_settings:
-    text: '**Draft.** Data from 2 Oct 2026, up to today (today is incomplete). Live: charts query the logs on each load. Numbers are self-consistent only; credits for three keys were checked against the Mongo ledger on 30 Oct 2026.'
+    text: '**Draft.** Data from 2 Oct 2026, refreshed daily from the logs; today and 2 Oct are partial. Self-consistent only: row counts match the raw logs. API keys here include test keys and keys on no plan; for paying customers see [Trivia API: business overview](/dashboard/3).'
     virtual_card:
       display: text
 - entity_id: hx01UavZRRmV2CrWUxp0L
@@ -99,7 +99,7 @@ dashcards:
   parameter_mappings: []
   series: []
   visualization_settings:
-    text: '**Definitions.** Successful: status below 400. Paid key: a key matching an account. Unrecognised key: a key matching no account, usually rejected or deleted. Free tier: no key sent. Bots are not filtered.'
+    text: '**Definitions.** Successful: status below 400. API key: a key matching an account, including test keys and keys on no plan. Unrecognised key: a key matching no account, usually rejected or deleted. Free tier: no key sent. Bots are not filtered.'
     virtual_card:
       display: text
 tabs: []

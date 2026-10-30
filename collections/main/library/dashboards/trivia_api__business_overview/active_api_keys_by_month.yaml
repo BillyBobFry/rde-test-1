@@ -1,0 +1,44 @@
+name: Active API keys by month
+description: 'Non-test keys charged at least one credit, complete months. Includes keys on no plan. Owner: Will Fry.'
+entity_id: W18jMDKin_mDwKnxFcF1I
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: line
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - metric
+      - {}
+      - vsix3-mZX_6Tk38FLGZoF
+    breakout:
+    - - field
+      - temporal-unit: month
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_key_month
+        - usage_month
+    filters:
+    - - segment
+      - {}
+      - esqOycnJRUreWDY_AL9W8
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_month
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings:
+  graph.dimensions:
+  - usage_month
+  graph.metrics:
+  - active_keys
+  graph.x_axis.title_text: Month
+  graph.y_axis.title_text: Active keys
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: 5ZwqZ9cgrHVqWQ1ZNITic
+type: question

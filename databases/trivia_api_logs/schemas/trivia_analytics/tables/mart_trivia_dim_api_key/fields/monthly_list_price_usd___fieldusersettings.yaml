@@ -1,0 +1,14 @@
+description: The matching plan's public list price; empty unless the key is on a plan and not a test key.
+description_set: true
+display_name: Monthly list price (USD)
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_dim_api_key
+- monthly_list_price_usd
+semantic_type: type/Currency
+semantic_type_set: true
+settings:
+  currency: USD
+serdes/meta:
+- model: FieldUserSettings

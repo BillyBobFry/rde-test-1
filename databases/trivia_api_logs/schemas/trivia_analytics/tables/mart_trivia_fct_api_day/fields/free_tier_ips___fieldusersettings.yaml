@@ -1,0 +1,10 @@
+description: Distinct IP addresses calling without a key that day. Not people; do not add across days.
+description_set: true
+display_name: Free-tier IPs
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_api_day
+- free_tier_ips
+serdes/meta:
+- model: FieldUserSettings

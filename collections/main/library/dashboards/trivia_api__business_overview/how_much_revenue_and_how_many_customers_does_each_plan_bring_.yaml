@@ -1,0 +1,64 @@
+name: How much revenue and how many customers does each plan bring?
+description: 'Estimate from public list prices, not billed revenue. Idle means no credits in the last complete month. Owner: Will Fry.'
+entity_id: tsThBE2uLLboQUjEDEM1g
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: table
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - measure
+      - {}
+      - 2JZSBKbxI0ngcLgN2-Pmv
+    - - measure
+      - {}
+      - kC_aJuumZmVPOq-FBUyna
+    - - count-where
+      - name: idle_keys
+      - - =
+        - {}
+        - - field
+          - {}
+          - - Trivia API Logs
+            - trivia_analytics
+            - mart_trivia_dim_api_key
+            - is_idle_last_complete_month
+        - true
+    breakout:
+    - - field
+      - {}
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_dim_api_key
+        - plan_name
+    filters:
+    - - segment
+      - {}
+      - _vhicxZCkGBSZd4Jp5s-s
+    order-by:
+    - - desc
+      - {}
+      - - measure
+        - {}
+        - 2JZSBKbxI0ngcLgN2-Pmv
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_dim_api_key
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings:
+  column_settings:
+    '["name","monthly_list_revenue"]':
+      currency: USD
+      currency_style: symbol
+      number_style: currency
+  table.column_formatting: []
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: 5ZwqZ9cgrHVqWQ1ZNITic
+type: question

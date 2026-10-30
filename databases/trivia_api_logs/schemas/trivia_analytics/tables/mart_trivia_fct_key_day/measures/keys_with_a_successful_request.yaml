@@ -1,0 +1,33 @@
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+definition:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - distinct-where
+      - name: keys_used
+      - - field
+        - {}
+        - - Trivia API Logs
+          - trivia_analytics
+          - mart_trivia_fct_key_day
+          - key_hash
+      - - '>'
+        - {}
+        - - field
+          - {}
+          - - Trivia API Logs
+            - trivia_analytics
+            - mart_trivia_fct_key_day
+            - successful_requests
+        - 0
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_day
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+description: 'Distinct keys with a successful request. Owner: Will Fry.'
+entity_id: YOY9meTnROo9WfCL27c81
+name: Keys with a successful request
+serdes/meta:
+- model: Measure

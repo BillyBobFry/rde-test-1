@@ -1,0 +1,49 @@
+name: 'Requests per day: free tier vs API keys'
+description: 'Complete days. Free-tier traffic has no account behind it. Owner: Will Fry.'
+entity_id: quQaO6wu9JbI13ZznMBeT
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: area
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - metric
+      - {}
+      - MCi36M1uBbnvJvlMFHBWB
+    - - metric
+      - {}
+      - b4LI-_frEUuv-godRy8Wa
+    breakout:
+    - - field
+      - temporal-unit: day
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_api_day
+        - request_date
+    filters:
+    - - segment
+      - {}
+      - lspLqmUsvS-sm3OOqHURX
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_api_day
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings:
+  graph.dimensions:
+  - request_date
+  graph.metrics:
+  - free_tier_requests
+  - api_key_requests
+  graph.x_axis.title_text: Day
+  graph.y_axis.title_text: Requests
+  stackable.stack_type: stacked
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: 5ZwqZ9cgrHVqWQ1ZNITic
+type: question

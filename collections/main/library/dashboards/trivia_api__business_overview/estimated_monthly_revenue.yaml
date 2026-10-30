@@ -1,0 +1,34 @@
+name: Estimated monthly revenue
+description: 'Estimate from public list prices, not billed revenue. Paying keys x list price. Owner: Will Fry.'
+entity_id: pDW7mSDgXf0VROAZe_Lwr
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: scalar
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - metric
+      - {}
+      - T13TYpidtajQ_IBZK_acD
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_dim_api_key
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings:
+  column_settings:
+    '["name","monthly_list_revenue"]':
+      currency: USD
+      currency_style: symbol
+      decimals: 0
+      number_style: currency
+  scalar.field: monthly_list_revenue
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: 5ZwqZ9cgrHVqWQ1ZNITic
+type: question

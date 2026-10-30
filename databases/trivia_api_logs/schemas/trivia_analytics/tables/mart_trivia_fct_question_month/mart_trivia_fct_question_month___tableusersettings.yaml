@@ -1,0 +1,14 @@
+caveats: State is today's, not as of that month. Pending questions all date from 2023 or earlier. Snapshot of the app DB.
+caveats_set: true
+collection_id: librarylibrarydatadat
+description: 'One row per month created and review state, with a running total. Owner: Will Fry.'
+description_set: true
+display_name: Questions by month
+entity_type: entity/GenericTable
+is_published: true
+table_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_question_month
+serdes/meta:
+- model: TableUserSettings

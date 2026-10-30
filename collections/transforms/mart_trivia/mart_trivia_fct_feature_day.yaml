@@ -1,0 +1,160 @@
+collection_id: Vq_JSZ9FQrYxtECEPNU0A
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+description: 'One row per: feature, day, caller type and API key, plus one zero row for each feature nobody used. Key: feature_day_key. Sources: stg_trivia_request, mart_trivia_dim_api_key; feature list from the-trivia-api at 9634b5b. Definition: requests per feature; a request counts toward each feature it uses, so features do not sum to total requests. Caveats: D1 success is status below 400. D4 only URL and query parameters are visible, not POST bodies. D5 no key is free tier. Translation means language= with a value other than en. Limits and rate-limit bypass are not measurable as features. ''Never used'' means since 2026-10-02 10:21 UTC. Plan and paying status are today''s.'
+entity_id: qxCtBMcEBcPMC_wMpKpM0
+indexes: []
+name: mart_trivia_fct_feature_day
+owner_user_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+source:
+  query:
+    database: Trivia API Logs
+    stages:
+    - native: |
+        -- One row per: feature, day, caller type and API key, plus one zero row for each feature nobody used
+        -- Key:         feature_day_key
+        -- Sources:     stg_trivia_request, mart_trivia_dim_api_key; feature list from the-trivia-api at 9634b5b
+        -- Definition:  requests per feature; a request counts toward each feature it uses, so features do not sum to total requests
+        -- Caveats:     D1 success is status below 400. D4 only URL and query parameters are visible, not POST bodies. D5 no key is free tier. Translation means language= with a value other than en. Limits and rate-limit bypass are not measurable as features. 'Never used' means since 2026-10-02 10:21 UTC. Plan and paying status are today's; a key gone from the app DB is labelled Deleted key.
+        WITH catalog AS (
+          SELECT * FROM UNNEST([
+            STRUCT('Random questions' AS feature, 'Questions' AS feature_group),
+            ('Question by ID', 'Questions'),
+            ('Question count', 'Questions'),
+            ('Question search', 'Questions'),
+            ('Download all questions', 'Questions'),
+            ('Filter: categories', 'Filters'),
+            ('Filter: difficulty', 'Filters'),
+            ('Filter: region', 'Filters'),
+            ('Filter: tags', 'Filters'),
+            ('Filter: content filter', 'Filters'),
+            ('Preview questions', 'Filters'),
+            ('Text input questions', 'Paid question features'),
+            ('Image choice questions', 'Paid question features'),
+            ('Answer validation', 'Paid question features'),
+            ('Translations', 'Paid question features'),
+            ('Sessions', 'Paid question features'),
+            ('Quiz: read', 'Quizzes'),
+            ('Quiz: create', 'Quizzes'),
+            ('Quiz: list own', 'Quizzes'),
+            ('Quiz: delete', 'Quizzes'),
+            ('AI quiz generation', 'AI'),
+            ('AI questions: list own', 'AI'),
+            ('AI question: delete', 'AI'),
+            ('Jeopardy question', 'AI'),
+            ('Generate translations', 'AI'),
+            ('Question: create', 'Content management'),
+            ('Question: edit', 'Content management'),
+            ('Question: approve', 'Content management'),
+            ('Question: reject', 'Content management'),
+            ('Question: submit image choice', 'Content management'),
+            ('Question: report', 'Content management'),
+            ('Review reports', 'Content management'),
+            ('Review pending questions', 'Content management'),
+            ('Validate API key', 'Account'),
+            ('Check credits used', 'Account'),
+            ('Reference data', 'Reference data')
+          ])
+        ),
+        requests AS (
+          SELECT
+            r.request_date,
+            r.is_complete_day,
+            r.caller_type,
+            r.key_hash,
+            r.key_id,
+            r.is_success,
+            r.http_method AS m,
+            r.route AS r,
+            r.raw_query AS q
+          FROM trivia_analytics.stg_trivia_request r
+        ),
+        request_feature AS (
+          SELECT req.*, f AS feature
+          FROM requests req, UNNEST([
+            IF(req.m = 'GET' AND req.r = '/questions', 'Random questions', NULL),
+            IF(req.m = 'GET' AND req.r = '/question/:id', 'Question by ID', NULL),
+            IF(req.r = '/questions/count', 'Question count', NULL),
+            IF(req.r = '/questions/search', 'Question search', NULL),
+            IF(req.r = '/questions/download', 'Download all questions', NULL),
+            IF(req.r = '/questions' AND REGEXP_CONTAINS(req.q, r'(^|&)(categories|category)='), 'Filter: categories', NULL),
+            IF(req.r = '/questions' AND REGEXP_CONTAINS(req.q, r'(^|&)(difficulties|difficulty)='), 'Filter: difficulty', NULL),
+            IF(req.r = '/questions' AND REGEXP_CONTAINS(req.q, r'(^|&)(region|regions)='), 'Filter: region', NULL),
+            IF(req.r = '/questions' AND REGEXP_CONTAINS(req.q, r'(^|&)tags='), 'Filter: tags', NULL),
+            IF(req.r = '/questions' AND REGEXP_CONTAINS(req.q, r'(?i)(^|&)contentFilter='), 'Filter: content filter', NULL),
+            IF(req.r = '/questions' AND REGEXP_CONTAINS(req.q, r'(^|&)preview=') OR req.r = '/session/:id/preview-questions', 'Preview questions', NULL),
+            IF(req.r = '/questions' AND REGEXP_CONTAINS(req.q, r'(^|&)types?=[^&]*text_input'), 'Text input questions', NULL),
+            IF(req.r = '/questions' AND REGEXP_CONTAINS(req.q, r'(^|&)types?=[^&]*image_choice'), 'Image choice questions', NULL),
+            IF(req.r = '/question/:id/validate', 'Answer validation', NULL),
+            IF(REGEXP_CONTAINS(req.q, r'(^|&)language=') AND NOT REGEXP_CONTAINS(req.q, r'(^|&)language=en(&|$)'), 'Translations', NULL),
+            IF(STARTS_WITH(req.r, '/session') OR REGEXP_CONTAINS(req.q, r'(^|&)session='), 'Sessions', NULL),
+            IF(req.m = 'GET' AND req.r = '/quiz/:id', 'Quiz: read', NULL),
+            IF(req.m = 'POST' AND req.r = '/quiz', 'Quiz: create', NULL),
+            IF(req.r = '/quizzes', 'Quiz: list own', NULL),
+            IF(req.m = 'DELETE' AND req.r = '/quiz/:id', 'Quiz: delete', NULL),
+            IF(req.r = '/ai/quiz', 'AI quiz generation', NULL),
+            IF(req.r = '/ai/questions', 'AI questions: list own', NULL),
+            IF(req.r = '/ai/question/:questionId', 'AI question: delete', NULL),
+            IF(req.r IN ('/ai/jeopardy-question', '/jeopardy/question'), 'Jeopardy question', NULL),
+            IF(req.r = '/translate/questions', 'Generate translations', NULL),
+            IF(req.m = 'POST' AND req.r = '/question', 'Question: create', NULL),
+            IF(req.m = 'PUT' AND req.r = '/question/:id', 'Question: edit', NULL),
+            IF(req.r = '/question/:id/approve', 'Question: approve', NULL),
+            IF(req.r = '/question/:id/reject', 'Question: reject', NULL),
+            IF(req.r = '/question/image-choice-question', 'Question: submit image choice', NULL),
+            IF(req.r = '/question/:id/report', 'Question: report', NULL),
+            IF(STARTS_WITH(req.r, '/reports/review'), 'Review reports', NULL),
+            IF(req.r IN ('/questions/pending', '/questions/review'), 'Review pending questions', NULL),
+            IF(req.r = '/key/validate', 'Validate API key', NULL),
+            IF(req.r = '/key/requests-made', 'Check credits used', NULL),
+            IF(req.r IN ('/categories', '/tags', '/totals-per-tag', '/totals-per-region', '/metadata', '/metadata/content-filter', '/languages'), 'Reference data', NULL)
+          ]) f
+          WHERE f IS NOT NULL
+        ),
+        usage_rollup AS (
+          SELECT
+            rf.feature,
+            rf.request_date,
+            rf.is_complete_day,
+            rf.caller_type,
+            rf.key_hash,
+            rf.key_id,
+            COUNT(*) AS total_requests,
+            COUNTIF(rf.is_success) AS successful_requests,
+            COUNTIF(NOT rf.is_success) AS failed_requests
+          FROM request_feature rf
+          GROUP BY 1, 2, 3, 4, 5, 6
+        )
+        SELECT
+          CONCAT(c.feature, '|', IFNULL(CAST(u.request_date AS STRING), 'never'), '|', IFNULL(u.caller_type, 'none'), '|', IFNULL(u.key_hash, 'none')) AS feature_day_key,
+          c.feature,
+          c.feature_group,
+          u.request_date,
+          IFNULL(u.is_complete_day, FALSE) AS is_complete_day,
+          u.caller_type,
+          u.key_id,
+          IFNULL(d.key_code, RIGHT(u.key_id, 3)) AS key_code,
+          u.key_hash,
+          IF(u.key_id IS NOT NULL, IFNULL(d.plan_name, 'Deleted key'), NULL) AS plan_name,
+          IFNULL(d.is_paying, FALSE) AS is_paying,
+          IFNULL(d.is_test, FALSE) AS is_test,
+          IFNULL(u.total_requests, 0) AS total_requests,
+          IFNULL(u.successful_requests, 0) AS successful_requests,
+          IFNULL(u.failed_requests, 0) AS failed_requests
+        FROM catalog c
+        LEFT JOIN usage_rollup u ON u.feature = c.feature
+        LEFT JOIN trivia_analytics.mart_trivia_dim_api_key d ON d.key_id = u.key_id
+      lib/type: mbql.stage/native
+    lib/type: mbql/query
+  type: query
+source_database_id: Trivia API Logs
+tags:
+- entity_id: Ez6ic12DzTBYlouUcQOVp
+  position: 0
+  tag_id: dUW7nvQHQBdA0Rx0gJckI
+target:
+  database: Trivia API Logs
+  name: mart_trivia_fct_feature_day
+  schema: trivia_analytics
+  type: table
+serdes/meta:
+- model: Transform

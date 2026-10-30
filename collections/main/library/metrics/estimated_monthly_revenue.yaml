@@ -1,0 +1,30 @@
+name: Estimated monthly revenue
+description: 'Self-consistent only, no external reference; an estimate, not billed revenue. Monthly list price in USD of every paying key: Value $9.99, Regular $19.99, Complete $39.99, from the public plans list on 30 Oct 2026. Paying means not a test key and every plan setting matches exactly (D12). No billing data exists, so it ignores discounts, annual plans, failed payments and old prices, and counts lapsed subscribers who kept their settings. Also called MRR. Snapshot of the app DB as of the refresh date. Not comparable to accounting revenue. Owner: Will Fry.'
+entity_id: T13TYpidtajQ_IBZK_acD
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: scalar
+collection_id: librarylibrarymetrics
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - measure
+      - {}
+      - 2JZSBKbxI0ngcLgN2-Pmv
+    filters:
+    - - segment
+      - {}
+      - _vhicxZCkGBSZd4Jp5s-s
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_dim_api_key
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+type: metric

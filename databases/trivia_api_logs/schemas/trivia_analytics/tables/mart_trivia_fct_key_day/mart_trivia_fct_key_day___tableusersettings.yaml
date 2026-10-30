@@ -1,0 +1,14 @@
+caveats: Logs start 2 Oct 2026. Today and 2 Oct are flagged incomplete. Plan and paying status are today's.
+caveats_set: true
+collection_id: librarylibrarydatadat
+description: 'One row per day, caller type and API key. All no-key traffic is one row per day. Owner: Will Fry.'
+description_set: true
+display_name: API requests by key and day
+entity_type: entity/EventTable
+is_published: true
+table_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_key_day
+serdes/meta:
+- model: TableUserSettings

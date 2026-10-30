@@ -1,0 +1,10 @@
+description: Not a test key, and every plan setting matches exactly.
+description_set: true
+display_name: Paying customer
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_dim_api_key
+- is_paying
+serdes/meta:
+- model: FieldUserSettings

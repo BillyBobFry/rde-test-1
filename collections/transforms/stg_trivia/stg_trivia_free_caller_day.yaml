@@ -1,0 +1,38 @@
+collection_id: rzCN1f5ECRbLeyHVYkOnl
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+description: 'One row per: day. Key: request_date. Sources: trivia_api_logs.run_googleapis_com_stdout. Definition: distinct IP addresses calling the API with no key that day. Caveats: D14 counts only; no IP is stored. IPs are not people: shared networks undercount and roaming devices overcount. Days do not add up.'
+entity_id: c4xKBq1sqjXnqWAUwNVFt
+indexes: []
+name: stg_trivia_free_caller_day
+owner_user_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+source:
+  query:
+    database: Trivia API Logs
+    stages:
+    - native: |
+        -- One row per: day
+        -- Key:         request_date
+        -- Sources:     trivia_api_logs.run_googleapis_com_stdout
+        -- Definition:  distinct IP addresses calling the API with no key that day
+        -- Caveats:     D14 counts only; no IP is stored. IPs are not people: shared networks undercount and roaming devices overcount. Days do not add up.
+        SELECT
+          DATE(l.timestamp) AS request_date,
+          COUNT(DISTINCT l.jsonPayload.ip) AS free_tier_ips
+        FROM trivia_api_logs.run_googleapis_com_stdout l
+        WHERE l.jsonPayload.type = 'request' AND l.jsonPayload.apikey.hash IS NULL
+        GROUP BY 1
+      lib/type: mbql.stage/native
+    lib/type: mbql/query
+  type: query
+source_database_id: Trivia API Logs
+tags:
+- entity_id: F7jvjXqXNdcQqypOEcqwK
+  position: 0
+  tag_id: dUW7nvQHQBdA0Rx0gJckI
+target:
+  database: Trivia API Logs
+  name: stg_trivia_free_caller_day
+  schema: trivia_analytics
+  type: table
+serdes/meta:
+- model: Transform

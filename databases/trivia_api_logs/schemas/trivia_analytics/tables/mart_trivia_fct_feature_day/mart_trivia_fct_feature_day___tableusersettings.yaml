@@ -1,0 +1,14 @@
+caveats: A request counts toward each feature it uses, so features do not sum to total requests. Only URLs are logged, so options in POST bodies are invisible.
+caveats_set: true
+collection_id: librarylibrarydatadat
+description: 'One row per feature, day, caller type and API key, plus a zero row for each feature nobody used. Owner: Will Fry.'
+description_set: true
+display_name: Feature usage by day
+entity_type: entity/EventTable
+is_published: true
+table_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_feature_day
+serdes/meta:
+- model: TableUserSettings

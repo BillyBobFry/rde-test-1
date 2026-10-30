@@ -1,0 +1,60 @@
+name: 'Requests per day: API keys vs free tier'
+description: Successful requests per complete day since 2 Oct 2026; today excluded. Self-consistent only.
+entity_id: H0YHrGctcVCVcOu6-hf3T
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: line
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - measure
+      - {}
+      - 6j7PNIwBdSBaS3uuQb20g
+    breakout:
+    - - field
+      - temporal-unit: day
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_key_day
+        - request_date
+    - - field
+      - {}
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_key_day
+        - caller_type
+    filters:
+    - - segment
+      - {}
+      - ecMbBuAyTu3Fuq7PfM5y1
+    - - '!='
+      - {}
+      - - field
+        - {}
+        - - Trivia API Logs
+          - trivia_analytics
+          - mart_trivia_fct_key_day
+          - caller_type
+      - Unrecognised key
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_day
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings:
+  graph.dimensions:
+  - request_date
+  - caller_type
+  graph.metrics:
+  - successful_requests
+  graph.x_axis.title_text: Day
+  graph.y_axis.title_text: Successful requests
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: -HcieavlSY8qTr_ZKl7E5
+type: question

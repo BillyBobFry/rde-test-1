@@ -1,0 +1,265 @@
+name: 'Trivia API: business overview'
+description: 'Revenue estimate, customers, usage, reliability and the question bank. Owner: Will Fry.'
+entity_id: 5ZwqZ9cgrHVqWQ1ZNITic
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+collection_id: librarylibrarydashbrd
+collection_position: 1
+parameters:
+- id: date
+  name: Request date
+  position: 0
+  sectionId: date
+  slug: request_date
+  type: date/all-options
+serdes/meta:
+- model: Dashboard
+dashcards:
+- entity_id: dw4_Mk1-ZTYLQSGep-dj8
+  row: 0
+  col: 0
+  size_x: 24
+  size_y: 3
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings:
+    text: |-
+      **Draft.** Logs refresh daily and run through yesterday. Keys, plans, credits and questions come from an app DB snapshot taken **30 Oct 2026** and are stale until `scripts/refresh_app_db_snapshot.py` is rerun.
+
+      **Revenue is an estimate:** there is no billing data, so it is list price x keys that look paying. Self-consistent only. Credits: reconciled to request logs on 30 Oct 2026, within 5%. Everything else: self-consistent only.
+    virtual_card:
+      display: text
+- entity_id: gDk31hWirO7BV-31-6rQy
+  card_id: pDW7mSDgXf0VROAZe_Lwr
+  row: 3
+  col: 0
+  size_x: 6
+  size_y: 3
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: rW8YGE2gGuUSKSIHlHnxa
+  card_id: 7-f_3LtNN13eHLforLij2
+  row: 3
+  col: 6
+  size_x: 6
+  size_y: 3
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: Dkj4Z9E2QgnMRjvZR2fFv
+  card_id: Q-dWsDGaQ-xHrL9UAmZPY
+  row: 3
+  col: 12
+  size_x: 6
+  size_y: 3
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: TRAuH87PkKK1_ixFu0seE
+  card_id: cBCe6C22D70zYmQL7pEIu
+  row: 3
+  col: 18
+  size_x: 6
+  size_y: 3
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: 2uK5qGO4Y-K_h8_Gi0loZ
+  card_id: aPR0GqTPTQXRfZJRGkRMc
+  row: 6
+  col: 0
+  size_x: 6
+  size_y: 3
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: xAinX6rKfXJqkC7G_Wp_V
+  card_id: WY2pJpvgMV8nbEh7YCP-Q
+  row: 6
+  col: 6
+  size_x: 6
+  size_y: 3
+  inline_parameters: []
+  parameter_mappings:
+  - card_id: WY2pJpvgMV8nbEh7YCP-Q
+    parameter_id: date
+    target:
+    - dimension
+    - - field
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_api_day
+        - request_date
+      - base-type: type/Date
+  series: []
+  visualization_settings: {}
+- entity_id: ie9s-3tIoNG4TX0n5bGTF
+  card_id: _lO7ACf7LYHzOQi4U69yq
+  row: 6
+  col: 12
+  size_x: 6
+  size_y: 3
+  inline_parameters: []
+  parameter_mappings:
+  - card_id: _lO7ACf7LYHzOQi4U69yq
+    parameter_id: date
+    target:
+    - dimension
+    - - field
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_api_day
+        - request_date
+      - base-type: type/Date
+  series: []
+  visualization_settings: {}
+- entity_id: f0javZUT41j0YMhgwIFeZ
+  card_id: fS00KWdN7LlEd9vRDiQp8
+  row: 6
+  col: 18
+  size_x: 6
+  size_y: 3
+  inline_parameters: []
+  parameter_mappings:
+  - card_id: fS00KWdN7LlEd9vRDiQp8
+    parameter_id: date
+    target:
+    - dimension
+    - - field
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_api_day
+        - request_date
+      - base-type: type/Date
+  series: []
+  visualization_settings: {}
+- entity_id: KbQnBsxSfRl452axsoUKW
+  card_id: tsThBE2uLLboQUjEDEM1g
+  row: 9
+  col: 0
+  size_x: 12
+  size_y: 6
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: zkJ9fkXdPmbEAkRDzS0eM
+  card_id: 4vRNQMG-7o9jhduRYs6QR
+  row: 9
+  col: 12
+  size_x: 12
+  size_y: 6
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: 3QDKH5KxORw2O-bZlgBzg
+  card_id: 8htFulIypDiC4XKdBzreZ
+  row: 15
+  col: 0
+  size_x: 12
+  size_y: 6
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: Ac3bUZAguCBlWourcxzkV
+  card_id: W18jMDKin_mDwKnxFcF1I
+  row: 15
+  col: 12
+  size_x: 12
+  size_y: 6
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: qfw0HZ7T0TTwSzW47VtZx
+  card_id: quQaO6wu9JbI13ZznMBeT
+  row: 21
+  col: 0
+  size_x: 12
+  size_y: 6
+  inline_parameters: []
+  parameter_mappings:
+  - card_id: quQaO6wu9JbI13ZznMBeT
+    parameter_id: date
+    target:
+    - dimension
+    - - field
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_api_day
+        - request_date
+      - base-type: type/Date
+  series: []
+  visualization_settings: {}
+- entity_id: NAHeD5PylxeA4K29whuGF
+  card_id: DirnKmn9xmHGGW8ge3TMA
+  row: 21
+  col: 12
+  size_x: 12
+  size_y: 6
+  inline_parameters: []
+  parameter_mappings:
+  - card_id: DirnKmn9xmHGGW8ge3TMA
+    parameter_id: date
+    target:
+    - dimension
+    - - field
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_api_day
+        - request_date
+      - base-type: type/Date
+  series: []
+  visualization_settings: {}
+- entity_id: oMQWsCRNOjr5eLO5QmJY8
+  card_id: YEXW2sun8cynErPKbbM45
+  row: 27
+  col: 0
+  size_x: 12
+  size_y: 6
+  inline_parameters: []
+  parameter_mappings:
+  - card_id: YEXW2sun8cynErPKbbM45
+    parameter_id: date
+    target:
+    - dimension
+    - - field
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_api_day
+        - request_date
+      - base-type: type/Date
+  series: []
+  visualization_settings: {}
+- entity_id: kklpp2fd-sx1-Y_n5cA1-
+  card_id: DjeSwXja35ugemv0ZP4zp
+  row: 27
+  col: 12
+  size_x: 12
+  size_y: 6
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings: {}
+- entity_id: eP3CpR4kehRO92wkJd64L
+  row: 33
+  col: 0
+  size_x: 24
+  size_y: 4
+  inline_parameters: []
+  parameter_mappings: []
+  series: []
+  visualization_settings:
+    text: '**Definitions.** **Estimated monthly revenue:** monthly list price of every paying key, from the public plans list (Value $9.99, Regular $19.99, Complete $39.99); ignores discounts, annual plans and failed payments. **Paying customer:** not a test key, and every setting matches a plan exactly; a lapsed subscriber who kept the settings still counts. **Credits:** 1 per /questions request, 50 per answer validation. **Active key:** charged at least one credit in the month, on a plan or not. **Free tier:** requests with no key; bots are not filtered. **Server error rate:** status 500 or above as a share of all requests.'
+    virtual_card:
+      display: text
+tabs: []
+width: fixed

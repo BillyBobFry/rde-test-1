@@ -1,0 +1,41 @@
+collection_id: Vq_JSZ9FQrYxtECEPNU0A
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+description: 'One row per: month created and review state. Key: question_month_key. Sources: stg_trivia_question_month. Definition: questions created per month by state, with the running total of each state. Caveats: state is today''s, not as of that month. Question text is not copied. 5,661 pending questions are from 2023 or earlier. D15 stale until the refresh script reruns.'
+entity_id: RfZWjY37GC1byPdnhUetB
+indexes: []
+name: mart_trivia_fct_question_month
+owner_user_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+source:
+  query:
+    database: Trivia API Logs
+    stages:
+    - native: |
+        -- One row per: month created and review state
+        -- Key:         question_month_key
+        -- Sources:     stg_trivia_question_month
+        -- Definition:  questions created per month by state, with the running total of each state
+        -- Caveats:     state is today's, not as of that month. Question text is not copied. 5,661 pending questions are from 2023 or earlier. D15 stale until the refresh script reruns.
+        SELECT
+          CONCAT(CAST(q.created_month AS STRING), '|', q.question_state) AS question_month_key,
+          q.created_month,
+          q.question_state,
+          q.question_state = 'approved' AS is_approved,
+          q.question_count,
+          SUM(q.question_count) OVER (PARTITION BY q.question_state ORDER BY q.created_month) AS running_question_count,
+          q.snapshot_date
+        FROM trivia_analytics.stg_trivia_question_month q
+      lib/type: mbql.stage/native
+    lib/type: mbql/query
+  type: query
+source_database_id: Trivia API Logs
+tags:
+- entity_id: K5DXkvgCzHzoCCubJuOyU
+  position: 0
+  tag_id: dUW7nvQHQBdA0Rx0gJckI
+target:
+  database: Trivia API Logs
+  name: mart_trivia_fct_question_month
+  schema: trivia_analytics
+  type: table
+serdes/meta:
+- model: Transform

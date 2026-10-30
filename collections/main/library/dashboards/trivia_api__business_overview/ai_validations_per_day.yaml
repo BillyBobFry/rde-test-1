@@ -1,0 +1,44 @@
+name: AI validations per day
+description: 'Answer validations that called the AI model, complete days. Tokens are not priced, so this is volume, not cost. Owner: Will Fry.'
+entity_id: YEXW2sun8cynErPKbbM45
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: bar
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - metric
+      - {}
+      - JSN2nrM_qTlZ719Sbz27D
+    breakout:
+    - - field
+      - temporal-unit: day
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_api_day
+        - request_date
+    filters:
+    - - segment
+      - {}
+      - lspLqmUsvS-sm3OOqHURX
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_api_day
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings:
+  graph.dimensions:
+  - request_date
+  graph.metrics:
+  - ai_validations
+  graph.x_axis.title_text: Day
+  graph.y_axis.title_text: AI validations
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: 5ZwqZ9cgrHVqWQ1ZNITic
+type: question

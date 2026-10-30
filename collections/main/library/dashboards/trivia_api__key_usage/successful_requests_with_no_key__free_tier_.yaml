@@ -9,26 +9,20 @@ parameter_mappings: []
 dataset_query:
   database: Trivia API Logs
   stages:
-  - native: 'SELECT SUM(successful_requests) AS successful_requests FROM ({{snippet: Trivia API requests by key and day}}) b WHERE caller_type = ''Free (no key)'''
-    template-tags:
-    - display-name: Trivia API requests by key and day
-      id: c3739df0-71a3-4a06-a395-abb908e0976a
-      name: 'snippet: Trivia API requests by key and day'
-      snippet-id: S9S9Pt9p6nUgKsRGr0W3S
-      snippet-name: Trivia API requests by key and day
-      type: snippet
-    lib/type: mbql.stage/native
+  - aggregation:
+    - - measure
+      - {}
+      - 6j7PNIwBdSBaS3uuQb20g
+    filters:
+    - - segment
+      - {}
+      - 1f2MsuMRzD73LCXD_qdpk
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_day
+    lib/type: mbql.stage/mbql
   lib/type: mbql/query
-result_metadata:
-- base_type: type/Integer
-  display_name: successful_requests
-  effective_type: type/Integer
-  field_ref:
-  - field
-  - successful_requests
-  - base-type: type/Integer
-  name: successful_requests
-  semantic_type: null
 visualization_settings: {}
 card_schema: 24
 serdes/meta:

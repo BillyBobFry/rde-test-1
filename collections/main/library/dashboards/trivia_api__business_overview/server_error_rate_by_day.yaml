@@ -1,0 +1,48 @@
+name: Server error rate by day
+description: 'Status 500 or above as a share of all requests, complete days. Owner: Will Fry.'
+entity_id: DirnKmn9xmHGGW8ge3TMA
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: line
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - metric
+      - {}
+      - 8u1lZjzgNA3oA5pgaDC5X
+    breakout:
+    - - field
+      - temporal-unit: day
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_api_day
+        - request_date
+    filters:
+    - - segment
+      - {}
+      - lspLqmUsvS-sm3OOqHURX
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_api_day
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings:
+  column_settings:
+    '["name","server_error_rate"]':
+      decimals: 3
+      number_style: percent
+  graph.dimensions:
+  - request_date
+  graph.metrics:
+  - server_error_rate
+  graph.x_axis.title_text: Day
+  graph.y_axis.title_text: Server error rate
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: 5ZwqZ9cgrHVqWQ1ZNITic
+type: question

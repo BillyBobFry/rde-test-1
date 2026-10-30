@@ -1,0 +1,31 @@
+name: Rejected requests from API keys
+description: Self-consistent only. Since 2 Oct 2026, today incomplete. Status 400 or above, including 429s.
+entity_id: q7iDzvfalFUP6dWtKkadh
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: scalar
+collection_id: librarylibrarydashbrd
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - measure
+      - {}
+      - SyK5Ap4Km-abK2xIk8QXE
+    filters:
+    - - segment
+      - {}
+      - o07sU8HE3Rp9ENI7xr_Oe
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_day
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+dashboard_id: -HcieavlSY8qTr_ZKl7E5
+type: question

@@ -1,0 +1,37 @@
+name: Approved questions
+description: 'Self-consistent only, no external reference. Questions approved for use, by month created. Without a time breakout, this is the size of the live question bank. Snapshot of the app DB. Owner: Will Fry.'
+entity_id: N7bO8IPqytHMubYaU-8j_
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: line
+collection_id: librarylibrarymetrics
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - measure
+      - {}
+      - H-oq5BcEdHcCsenRe4iab
+    breakout:
+    - - field
+      - temporal-unit: month
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_question_month
+        - created_month
+    filters:
+    - - segment
+      - {}
+      - JVj7D0lJPugn0WkY6FfnD
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_question_month
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+type: metric

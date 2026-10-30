@@ -1,0 +1,33 @@
+name: Estimated revenue from idle customers
+description: 'Self-consistent only, no external reference; an estimate, not billed revenue. Monthly list price of paying customers with no credits used in the last complete month. Owner: Will Fry.'
+entity_id: F3N6nh031TVH3yfajjZz9
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: scalar
+collection_id: librarylibrarymetrics
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - measure
+      - {}
+      - 2JZSBKbxI0ngcLgN2-Pmv
+    filters:
+    - - segment
+      - {}
+      - _vhicxZCkGBSZd4Jp5s-s
+    - - segment
+      - {}
+      - Qdj0SRbJG6ko3Hl2Z-dN2
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_dim_api_key
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+type: metric

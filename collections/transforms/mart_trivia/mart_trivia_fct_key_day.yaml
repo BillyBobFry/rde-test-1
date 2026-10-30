@@ -1,0 +1,65 @@
+collection_id: Vq_JSZ9FQrYxtECEPNU0A
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+description: 'One row per: day, caller type and API key. Key: key_day_key. Sources: stg_trivia_request, mart_trivia_dim_api_key. Definition: API requests per key per day; all no-key traffic is one row per day. Caveats: D1 success is status below 400. D2 a key missing from the app DB is unrecognised. D5 no key is free tier. Plan and paying status are today''s. Today and 2026-10-02 are flagged incomplete.'
+entity_id: vMaC-TGdYirEA9bBRGhQ-
+indexes: []
+name: mart_trivia_fct_key_day
+owner_user_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+source:
+  query:
+    database: Trivia API Logs
+    stages:
+    - native: |
+        -- One row per: day, caller type and API key
+        -- Key:         key_day_key
+        -- Sources:     stg_trivia_request, mart_trivia_dim_api_key
+        -- Definition:  API requests per key per day; all no-key traffic is one row per day
+        -- Caveats:     D1 success is status below 400. D2 a key missing from the app DB is unrecognised. D5 no key is free tier. Plan and paying status are today's; a key in the logs but gone from the app DB is labelled Deleted key (cce, 3,526 requests to 2026-10-14). Today and 2026-10-02 are flagged incomplete.
+        WITH requests AS (
+          SELECT
+            r.request_date,
+            r.is_complete_day,
+            r.caller_type,
+            r.key_hash,
+            r.key_id,
+            COUNT(*) AS total_requests,
+            COUNTIF(r.is_success) AS successful_requests,
+            COUNTIF(NOT r.is_success) AS failed_requests,
+            COUNTIF(r.status_code = 429) AS rate_limited_requests,
+            COUNTIF(r.is_ai_validation) AS ai_validations
+          FROM trivia_analytics.stg_trivia_request r
+          GROUP BY 1, 2, 3, 4, 5
+        )
+        SELECT
+          CONCAT(CAST(q.request_date AS STRING), '|', q.caller_type, '|', IFNULL(q.key_hash, 'none')) AS key_day_key,
+          q.request_date,
+          q.is_complete_day,
+          q.caller_type,
+          q.key_id,
+          IFNULL(d.key_code, RIGHT(q.key_id, 3)) AS key_code,
+          q.key_hash,
+          IF(q.key_id IS NOT NULL, IFNULL(d.plan_name, 'Deleted key'), NULL) AS plan_name,
+          IFNULL(d.is_paying, FALSE) AS is_paying,
+          IFNULL(d.is_test, FALSE) AS is_test,
+          q.total_requests,
+          q.successful_requests,
+          q.failed_requests,
+          q.rate_limited_requests,
+          q.ai_validations
+        FROM requests q
+        LEFT JOIN trivia_analytics.mart_trivia_dim_api_key d ON d.key_id = q.key_id
+      lib/type: mbql.stage/native
+    lib/type: mbql/query
+  type: query
+source_database_id: Trivia API Logs
+tags:
+- entity_id: lNcAgfdJQ5VFiAb34n1z0
+  position: 0
+  tag_id: dUW7nvQHQBdA0Rx0gJckI
+target:
+  database: Trivia API Logs
+  name: mart_trivia_fct_key_day
+  schema: trivia_analytics
+  type: table
+serdes/meta:
+- model: Transform

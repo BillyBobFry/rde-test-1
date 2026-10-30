@@ -1,0 +1,25 @@
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+definition:
+  database: Trivia API Logs
+  stages:
+  - filters:
+    - - =
+      - {}
+      - - field
+        - {}
+        - - Trivia API Logs
+          - trivia_analytics
+          - mart_trivia_fct_key_month
+          - is_paying
+      - true
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_month
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+description: 'Keys counted as paying today. Owner: Will Fry.'
+entity_id: FxLQvJH1eNxaxkQIZ_oof
+name: Paying customers
+serdes/meta:
+- model: Segment

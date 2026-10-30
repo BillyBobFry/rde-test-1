@@ -1,0 +1,10 @@
+description: Credits used divided by the key's monthly limit.
+description_set: true
+display_name: Limit used
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_key_month
+- limit_used_share
+serdes/meta:
+- model: FieldUserSettings

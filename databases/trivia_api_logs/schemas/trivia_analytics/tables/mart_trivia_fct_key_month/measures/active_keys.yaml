@@ -1,0 +1,27 @@
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+definition:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - count-where
+      - name: active_keys
+      - - =
+        - {}
+        - - field
+          - {}
+          - - Trivia API Logs
+            - trivia_analytics
+            - mart_trivia_fct_key_month
+            - is_active
+        - true
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_key_month
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+description: 'Keys with at least one credit charged. One row per key per month, so rows equal keys within a month. Owner: Will Fry.'
+entity_id: j_NzHco3z9qPFBPRKeiYl
+name: Active keys
+serdes/meta:
+- model: Measure

@@ -1,0 +1,9 @@
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_dim_api_key
+- key_id
+semantic_type: type/PK
+semantic_type_set: true
+serdes/meta:
+- model: FieldUserSettings

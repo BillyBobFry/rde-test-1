@@ -1,0 +1,13 @@
+description: API key, Free (no key), or Unrecognised key.
+description_set: true
+display_name: Caller type
+field_id:
+- Trivia API Logs
+- trivia_analytics
+- mart_trivia_fct_key_day
+- caller_type
+has_field_values: list
+semantic_type: type/Category
+semantic_type_set: true
+serdes/meta:
+- model: FieldUserSettings

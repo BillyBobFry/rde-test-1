@@ -1,0 +1,37 @@
+name: API requests
+description: 'Self-consistent only, no external reference. All logged API requests, complete days only (excludes today and 2 Oct 2026). Row counts match the raw logs. Logs start 2 Oct 2026, so there is no earlier history. Owner: Will Fry.'
+entity_id: Nu4DkKeShEdOfooJjxGj9
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+display: line
+collection_id: librarylibrarymetrics
+parameters: []
+parameter_mappings: []
+dataset_query:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - measure
+      - {}
+      - T3MvJUB2yaGY8sCemzcx5
+    breakout:
+    - - field
+      - temporal-unit: month
+      - - Trivia API Logs
+        - trivia_analytics
+        - mart_trivia_fct_api_day
+        - request_date
+    filters:
+    - - segment
+      - {}
+      - lspLqmUsvS-sm3OOqHURX
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_api_day
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+visualization_settings: {}
+card_schema: 24
+serdes/meta:
+- model: Card
+type: metric

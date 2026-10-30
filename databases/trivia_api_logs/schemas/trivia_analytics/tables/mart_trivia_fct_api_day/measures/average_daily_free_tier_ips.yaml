@@ -1,0 +1,24 @@
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+definition:
+  database: Trivia API Logs
+  stages:
+  - aggregation:
+    - - avg
+      - name: avg_free_tier_ips
+      - - field
+        - {}
+        - - Trivia API Logs
+          - trivia_analytics
+          - mart_trivia_fct_api_day
+          - free_tier_ips
+    source-table:
+    - Trivia API Logs
+    - trivia_analytics
+    - mart_trivia_fct_api_day
+    lib/type: mbql.stage/mbql
+  lib/type: mbql/query
+description: 'Average of each day''s distinct free-tier IPs. IPs are not people. Owner: Will Fry.'
+entity_id: TszpdJFwNH8YNpTi7o63y
+name: Average daily free-tier IPs
+serdes/meta:
+- model: Measure

@@ -1,0 +1,103 @@
+collection_id: rzCN1f5ECRbLeyHVYkOnl
+creator_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+description: 'One row per: API key. Key: key_id. Sources: app DB apiKey, snapshot 2026-10-30 via scripts/refresh_app_db_snapshot.py. Definition: each key''s plan settings and whether it is a test key. Caveats: D15 stale until the script reruns. D14 test keys flagged, not removed. No email, name, notes or secret key is copied.'
+entity_id: _72c8kCUTe48H9HXI7KYF
+indexes: []
+name: stg_trivia_api_key
+owner_user_id: api-key-user-469cdbae-9711-44db-a637-976060d00323@api-key.invalid
+source:
+  query:
+    database: Trivia API Logs
+    stages:
+    - native: |-
+        SELECT s.*, DATE '2026-10-30' AS snapshot_date FROM UNNEST(ARRAY<STRUCT<key_id STRING, key_code STRING, request_limit INT64, quiz_limit INT64, quiz_question_limit INT64, max_random_questions INT64, monthly_ai_question_limit INT64, can_search BOOL, can_skip_rate_limit BOOL, can_use_sessions BOOL, can_use_image_choice BOOL, can_use_text_input BOOL, can_use_translations BOOL, can_use_semantic_search BOOL, is_staff_key BOOL, is_test BOOL, test_reason STRING>>[
+          ('6aa3cc85e922b1c7a4c47cba', 'cba', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cc6', 'cc6', 100000, 999999999, 9999, 1000, 0, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cd0', 'cd0', 50000, 0, 0, 1000, 0, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cd3', 'cd3', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cd8', 'cd8', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47ced', 'ced', 100000, 50, 100, 10, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, 'Test email domain'),
+          ('6aa3cc85e922b1c7a4c47cf5', 'cf5', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cfe', 'cfe', 1000000, 100, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47d03', 'd03', 100000, 2, 100, 10, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, 'Test email domain'),
+          ('6aa3cc85e922b1c7a4c47cbd', 'cbd', 1000000, 100, 100, 1000, 0, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cbe', 'cbe', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cc9', 'cc9', 100000, 0, 0, 1000, 0, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cee', 'cee', 100000, 50, 100, 10, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, 'Test email domain'),
+          ('6aa3cc85e922b1c7a4c47cef', 'cef', 100000, 0, 0, 1, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, 'Test email domain'),
+          ('6aa3cc85e922b1c7a4c47d05', 'd05', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47d07', 'd07', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, 'Test email domain'),
+          ('6aa3cc85e922b1c7a4c47cca', 'cca', 100000, 0, 0, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47ce1', 'ce1', 5000000, 0, 0, 1000, 0, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cf9', 'cf9', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cff', 'cff', 100000, 2, 100, 10, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, 'Test email domain'),
+          ('6aa3cc85e922b1c7a4c47d06', 'd06', 100000, 0, 0, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cc1', 'cc1', 99999, 0, 0, 1000, 0, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, 'Internal use, from notes'),
+          ('6aa3cc85e922b1c7a4c47cf4', 'cf4', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47d0a', 'd0a', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cc2', 'cc2', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cd4', 'cd4', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cd6', 'cd6', 1000000, 100, 100, 1000, 0, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cde', 'cde', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cdf', 'cdf', 100000, 0, 0, 50, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, 'Test email domain'),
+          ('6aa3cc85e922b1c7a4c47ce5', 'ce5', 1000000, 100, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cf1', 'cf1', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cfc', 'cfc', 5000000, 1000, 20, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47d00', 'd00', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47d04', 'd04', 1000000, 1000, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cbc', 'cbc', 1000000, 100, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47ccc', 'ccc', 1000000, 100, 100, 1000, 0, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cd2', 'cd2', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cdd', 'cdd', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cd1', 'cd1', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cda', 'cda', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cec', 'cec', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cf7', 'cf7', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cb9', 'cb9', 999999, 0, 0, 10000, 0, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, 'Internal use, from notes'),
+          ('6aa3cc85e922b1c7a4c47cc0', 'cc0', 1000000, 100, 100, 1000, 0, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, 'Test email domain'),
+          ('6aa3cc85e922b1c7a4c47cc8', 'cc8', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47ce2', 'ce2', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47ce4', 'ce4', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cf2', 'cf2', 100000, 50, 100, 10, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, 'Test email domain'),
+          ('6aa3cc85e922b1c7a4c47cfb', 'cfb', 1000000, 100, 100, 1000, 0, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cc7', 'cc7', 100000, 0, 0, 1000, 0, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, 'Internal use, from notes'),
+          ('6aa3cc85e922b1c7a4c47ccb', 'ccb', 1000000, 100, 100, 1000, 0, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47ccf', 'ccf', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, 'Test email domain'),
+          ('6aa3cc85e922b1c7a4c47cf6', 'cf6', 100000, 0, 0, 1000, 0, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47d0b', 'd0b', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cbb', 'cbb', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cd9', 'cd9', 100000, 0, 0, 1000, 0, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cf0', 'cf0', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47d01', 'd01', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47d08', 'd08', 100000, 0, 0, 10, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, 'Test email domain'),
+          ('6aa3cc85e922b1c7a4c47cdc', 'cdc', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47ce0', 'ce0', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47d02', 'd02', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cb8', 'cb8', 999999, 0, 0, 1000, 0, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, 'Own account'),
+          ('6aa3cc85e922b1c7a4c47ccd', 'ccd', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47ce8', 'ce8', 100000, 0, 0, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cfa', 'cfa', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cfd', 'cfd', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cc4', 'cc4', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47cbf', 'cbf', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47ce3', 'ce3', 100000, 5, 20, 1000, 0, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6aa3cc85e922b1c7a4c47ce9', 'ce9', 100000, 0, 0, 1000, 0, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6ab2a929b27eee76d5e2e52c', '52c', 5000000, 1000, 100, 1000, 0, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6ac162025d4e097cb98a8987', '987', 1000000, 100, 100, 1000, 0, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING)),
+          ('6ace49ba28d8fbb76fc63d27', 'd27', 500000, 0, 0, 1000, 0, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, CAST(NULL AS STRING))
+        ]) s
+      lib/type: mbql.stage/native
+    lib/type: mbql/query
+  type: query
+source_database_id: Trivia API Logs
+tags:
+- entity_id: YShLh0bpcBcrsy4VRhVF3
+  position: 0
+  tag_id: dUW7nvQHQBdA0Rx0gJckI
+target:
+  database: Trivia API Logs
+  name: stg_trivia_api_key
+  schema: trivia_analytics
+  type: table
+serdes/meta:
+- model: Transform
